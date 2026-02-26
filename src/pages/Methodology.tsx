@@ -101,18 +101,18 @@ const Methodology = () => {
             In the spirit of open research and reproducibility, access to the automated scripts is provided. However all data will be available on the UK Statistic Office website. These resources would enable other researchers to validate the findings, build upon the methodology for this project, and apply similar approaches to different geographic or temporal contexts.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button variant="default" className="gap-2">
-              <Download className="w-4 h-4" />
-              Download Dataset (CSV)
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <Code2 className="w-4 h-4" />
-              View Source Code
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <Database className="w-4 h-4" />
-              Database Schema
-            </Button>
+            <a href="https://statistics.ukdataservice.ac.uk/dataset/" target="_blank" rel="noopener noreferrer">
+              <Button variant="default" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Dataset (CSV)
+              </Button>
+            </a>
+            <a href="https://github.com/jourdee-lab/manchester-spatial-analysis-data-lab" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="gap-2">
+                <Code2 className="w-4 h-4" />
+                View Source Code
+              </Button>
+            </a>
           </div>
         </Card>
       </main>
