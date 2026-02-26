@@ -16,9 +16,9 @@ interface FilterPanelProps {
 }
 
 const recordTypes = [
-  { id: 'residence', label: 'Residences', color: 'data-primary' },
-  { id: 'business', label: 'Businesses', color: 'data-secondary' },
-  { id: 'institution', label: 'Institutions', color: 'data-tertiary' },
+  { id: 'institution', label: 'Top-5 Chinese wards', color: 'data-primary' },
+  { id: 'business', label: 'Mid-concentration wards', color: 'data-secondary' },
+  { id: 'residence', label: 'Low-concentration wards', color: 'data-tertiary' },
 ];
 
 export const FilterPanel = ({
@@ -63,7 +63,7 @@ export const FilterPanel = ({
           <Separator />
 
           <div>
-            <Label className="text-sm font-semibold mb-4 block text-foreground">Ethnicity</Label>
+            <Label className="text-sm font-semibold mb-4 block text-foreground">Chinese Concentration</Label>
             <div className="space-y-4">
               {availableEthnicities.map(ethnicity => (
                 <div key={ethnicity} className="flex items-center space-x-3 group">

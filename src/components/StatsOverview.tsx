@@ -7,25 +7,28 @@ interface StatsOverviewProps {
 }
 
 export const StatsOverview = ({ filteredData, totalData }: StatsOverviewProps) => {
+  const totalPop = filteredData.reduce((s, r) => s + (Number(r.metadata?.totalPopulation) || 0), 0);
+  const totalChinese = filteredData.reduce((s, r) => s + (Number(r.metadata?.chinesePopulation) || 0), 0);
+
   const stats = [
     {
-      label: 'Total Records',
-      value: totalData.length,
+      label: 'Wards Shown',
+      value: filteredData.length,
       color: 'text-foreground',
     },
     {
-      label: 'Filtered',
-      value: filteredData.length,
+      label: 'Total Population',
+      value: totalPop > 0 ? totalPop.toLocaleString() : '—',
       color: 'text-accent',
     },
     {
-      label: 'Residences',
-      value: filteredData.filter(r => r.type === 'residence').length,
+      label: 'Chinese Population',
+      value: totalChinese > 0 ? totalChinese.toLocaleString() : '—',
       color: 'text-data-primary',
     },
     {
-      label: 'Businesses',
-      value: filteredData.filter(r => r.type === 'business').length,
+      label: 'High Concentration',
+      value: filteredData.filter(r => r.ethnicity === 'High Concentration').length,
       color: 'text-data-secondary',
     },
   ];
