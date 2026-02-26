@@ -1,0 +1,92 @@
+{
+  "schema": "harmonised-ward-v1",
+  "generatedAt": "2026-02-25T21:29:30.017733",
+  "geographyLevel": "ward",
+  "boundaryYear": 2001,
+  "decades": [
+    {
+      "year": 1981,
+      "geojson": "/geojson/manchester_wards_1981.geojson",
+      "featureCount": 33,
+      "indicators": [
+        "total_population",
+        "pct_male",
+        "pct_female",
+        "chinese_ethnic_count",
+        "pct_chinese_ethnic",
+        "china_born_count",
+        "pct_china_born",
+        "total_hh",
+        "pct_owner_occ",
+        "pct_social_rent",
+        "pct_no_car",
+        "pct_overcrowd",
+        "pct_no_bath_wc",
+        "emp_rate"
+      ]
+    },
+    {
+      "year": 1991,
+      "geojson": "/geojson/manchester_wards_1991.geojson",
+      "featureCount": 33,
+      "indicators": [
+        "total_population",
+        "pct_male",
+        "pct_female",
+        "chinese_ethnic_count",
+        "pct_chinese_ethnic",
+        "china_born_count",
+        "pct_china_born",
+        "pct_owner_occ",
+        "pct_overcrowd",
+        "emp_rate",
+        "unemployment_rate"
+      ]
+    },
+    {
+      "year": 2001,
+      "geojson": "/geojson/manchester_wards_2001.geojson",
+      "featureCount": 33,
+      "indicators": [
+        "total_population",
+        "chinese_ethnic_count",
+        "pct_chinese_ethnic",
+        "china_born_count",
+        "pct_china_born",
+        "total_hh",
+        "pct_owner_occ",
+        "pct_social_rent",
+        "pct_private_rent",
+        "pct_no_car",
+        "pct_overcrowd",
+        "pct_no_bath_wc",
+        "emp_rate",
+        "unemployment_rate",
+        "self_employment_rate"
+      ]
+    }
+  ],
+  "indicatorNotes": {
+    "pct_chinese_ethnic": {
+      "1981": "Proxy: % born in Far East (no ethnic group question in 1981 census)",
+      "1991": "% residents of Chinese ethnic group",
+      "2001": "% residents of Chinese ethnic group (CT003EW)"
+    },
+    "pct_china_born": {
+      "1981": "% born in China / Far East",
+      "1991": "% born in China",
+      "2001": "Asia-born proxy (no OA-level China-specific COB in 2001)"
+    },
+    "emp_rate": {
+      "1981": "% employed (all residents)",
+      "1991": "% economically active (Chinese sub-population only)",
+      "2001": "% economically active aged 16\u201374 (CS028EW)"
+    },
+    "pct_owner_occ": {
+      "1991": "Chinese households only"
+    },
+    "pct_overcrowd": {
+      "1991": "Chinese households only"
+    }
+  }
+}
