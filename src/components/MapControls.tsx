@@ -18,7 +18,7 @@ export const MapControls = ({ onTileLayerChange, currentLayer }: MapControlsProp
             Base Map
           </h3>
         </div>
-        <Tabs value={currentLayer} onValueChange={(v) => onTileLayerChange(v as any)}>
+        <Tabs value={currentLayer} onValueChange={(v) => onTileLayerChange(v as 'street' | 'satellite' | 'terrain')}>
           <TabsList className="grid w-full grid-cols-3 h-8">
             <TabsTrigger value="street" className="text-xs h-7 px-2">
               <MapIcon className="w-3 h-3 mr-1" />
