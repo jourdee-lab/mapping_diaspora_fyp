@@ -49,16 +49,3 @@ public/
 ## Deployment
 
 The repository includes a `vercel.json` configured for single-page app routing. Import the repo at [vercel.com](https://vercel.com) and it will deploy automatically with no extra configuration needed.
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6c14bafc-3461-41d2-aca0-5fabf5eee037) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
