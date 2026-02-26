@@ -1,73 +1,51 @@
-# Welcome to your Lovable project
+# Mapping the Diaspora
 
-## Project info
+An interactive map for exploring historical census data across Greater Manchester. Browse population, employment, housing, and migration indicators across the 1981, 1991, and 2001 censuses, shown at ward and enumeration district level.
 
-**URL**: https://lovable.dev/projects/6c14bafc-3461-41d2-aca0-5fabf5eee037
+## What it does
 
-## How can I edit this code?
+The app renders choropleth maps of Manchester that shade each area by a chosen indicator. You pick a census year and an indicator from the panel on the left, and the map updates accordingly. All the underlying data is bundled in the repository as static GeoJSON files, so no external database or API is needed.
 
-There are several ways of editing your application.
+## Running it locally
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/6c14bafc-3461-41d2-aca0-5fabf5eee037) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+You need Node.js. If you do not have it, [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) is the simplest way to install it.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+git clone https://github.com/jourdee-lab/mapping_diaspora_fyp.git
+cd mapping_diaspora_fyp
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open the URL printed in your terminal. The page reloads automatically as you edit files.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Other commands
 
-**Use GitHub Codespaces**
+| Command | What it does |
+| --- | --- |
+| `npm run build` | Builds the app for production into `dist/` |
+| `npm run preview` | Serves the production build locally |
+| `npm run lint` | Checks the code with ESLint |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project layout
 
-## What technologies are used for this project?
+```
+src/
+  components/   Map container, legend, side panels, header
+  data/         Indicator definitions
+  pages/        Page-level components (explorer, about, methodology)
+  types/        Shared TypeScript types
+public/
+  geojson/      GeoJSON boundary files for 1981, 1991, and 2001
+```
 
-This project is built with:
+## Tech stack
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- [Vite](https://vitejs.dev) and [TypeScript](https://www.typescriptlang.org)
+- [React](https://react.dev)
+- [Tailwind CSS](https://tailwindcss.com) and [shadcn/ui](https://ui.shadcn.com)
+- [React Leaflet](https://react-leaflet.js.org) for the map
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/6c14bafc-3461-41d2-aca0-5fabf5eee037) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+The repository includes a `vercel.json` configured for single-page app routing. Import the repo at [vercel.com](https://vercel.com) and it will deploy automatically with no extra configuration needed.
