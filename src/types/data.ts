@@ -7,7 +7,7 @@ export interface HistoricalRecord {
   ethnicity?: string;
   businessType?: string;
   address: string;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export interface TimeRange {

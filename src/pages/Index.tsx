@@ -75,7 +75,13 @@ const Index = () => {
 
           <div className="col-span-6 space-y-6">
             <Card className="p-6">
-              <TimeSlider value={selectedYear} onChange={setSelectedYear} min={1981} max={2001} availableYears={availableYears} />
+              <TimeSlider
+                value={selectedYear}
+                onChange={setSelectedYear}
+                min={1981}
+                max={2001}
+                availableYears={[...availableYears]}
+              />
             </Card>
             
             <div className="h-[600px]">

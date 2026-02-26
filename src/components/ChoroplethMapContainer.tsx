@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import type { Feature, FeatureCollection } from 'geojson';
 import { WardGeoJSON, WardFeatureProperties, IndicatorMetadata } from '@/types/data';
 import { ChoroplethLegend } from '@/components/ChoroplethLegend';
 import { Button } from './ui/button';
@@ -253,7 +253,8 @@ export function ChoroplethMapContainer({
         tileLayerRef.current = null;
       }
     };
-  }, []); // Empty deps - only run once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps - only run once (tile layer updates handled by separate effect)
 
   // Update tile layer
   useEffect(() => {
@@ -299,7 +300,7 @@ export function ChoroplethMapContainer({
 
     try {
       // Style function with improved boundary visualization
-      const style = (feature: any) => {
+      const style = (feature?: Feature) => {
         const value = feature.properties[indicator.field];
         return {
           fillColor: getColor(value, breaks, palette),
@@ -311,7 +312,7 @@ export function ChoroplethMapContainer({
       };
 
     // Create tooltip content
-    const onEachFeature = (feature: any, layer: L.Layer) => {
+    const onEachFeature = (feature: Feature, layer: L.Layer) => {
       const props = feature.properties;
       const value = props[indicator.field];
       const displayValue =
@@ -339,7 +340,7 @@ export function ChoroplethMapContainer({
       // Click handler
       layer.on({
         click: () => {
-          setSelectedFeature(props);
+          setSelectedFeature(props as WardFeatureProperties);
         },
         mouseover: (e: L.LeafletMouseEvent) => {
           const target = e.target;
@@ -357,7 +358,7 @@ export function ChoroplethMapContainer({
     };
 
     // Add GeoJSON layer
-    const geoJsonLayer = L.geoJSON(geojsonData as any, {
+    const geoJsonLayer = L.geoJSON(geojsonData as FeatureCollection, {
       style,
       onEachFeature,
     });
@@ -373,7 +374,7 @@ export function ChoroplethMapContainer({
     } catch (err) {
       console.error('[Choropleth] ✗ Error rendering:', err);
     }
-  }, [geojsonData, indicator.field, indicator.label, indicator.unit]);
+  }, [geojsonData, indicator.field, indicator.label, indicator.unit, breaks, palette]);
 
   return (
     <div className="relative w-full h-full bg-[#e8eaed]">
@@ -470,7 +471,7 @@ export function ChoroplethMapContainer({
               <span className="text-[#5f6368]">Value</span>
               <span className="font-semibold text-[#202124]">
                 {(() => {
-                  const val = selectedFeature[indicator.field as keyof typeof selectedFeature] as any;
+                  const val = selectedFeature[indicator.field as keyof typeof selectedFeature] as number | string | null | undefined;
                   if (typeof val === 'number') {
                     return indicator.unit === 'percentage'
                       ? `${(val as number).toFixed(1)}%`
