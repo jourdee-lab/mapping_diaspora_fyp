@@ -414,8 +414,8 @@ export function ChoroplethMapContainer({
 
       {/* Indicator Selector - Floating pill top right */}
       {availableIndicators.length > 0 && onIndicatorChange && (
-        <div className="absolute top-24 right-4 z-[1000]">
-          <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-float px-4 py-2.5">
+        <div className="absolute top-24 right-2 md:right-4 z-[1000]">
+          <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-float px-3 md:px-4 py-2 md:py-2.5">
             <Select
               value={indicator.id}
               onValueChange={(id) => {
@@ -423,10 +423,10 @@ export function ChoroplethMapContainer({
                 if (selected) onIndicatorChange(selected);
               }}
             >
-              <SelectTrigger className="w-44 h-8 border-0 bg-transparent shadow-none rounded-full text-sm font-medium text-[#202124] focus:ring-0 hover:bg-[#f1f3f4]/50 transition-colors">
+              <SelectTrigger className="w-32 md:w-44 h-8 border-0 bg-transparent shadow-none rounded-full text-xs md:text-sm font-medium text-[#202124] focus:ring-0 hover:bg-[#f1f3f4]/50 transition-colors">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent align="start" className="rounded-2xl shadow-float border-[#e8eaed] w-44">
+              <SelectContent align="end" className="rounded-2xl shadow-float border-[#e8eaed] w-44">
                 {availableIndicators.map((ind) => (
                   <SelectItem 
                     key={ind.id} 
@@ -444,7 +444,7 @@ export function ChoroplethMapContainer({
 
       {/* Legend - Floating bottom right */}
       {breaks.length > 0 && (
-        <div className="absolute bottom-6 right-5 z-[1000]">
+        <div className="absolute bottom-4 md:bottom-6 right-2 md:right-5 z-[1000]">
           <ChoroplethLegend
             title={indicator.label}
             unit={indicator.unit}
@@ -454,9 +454,9 @@ export function ChoroplethMapContainer({
         </div>
       )}
 
-      {/* Detail Panel - Floating bottom left */}
+      {/* Detail Panel - left side on mobile (avoids legend), bottom-left on desktop */}
       {selectedFeature && (
-        <div className="absolute bottom-6 left-5 z-[1000] bg-white/90 backdrop-blur-xl rounded-3xl shadow-float p-5 max-w-xs">
+        <div className="absolute bottom-4 md:bottom-6 left-2 right-[186px] md:left-5 md:right-auto z-[1000] bg-white/90 backdrop-blur-xl rounded-3xl shadow-float p-4 md:p-5 md:max-w-xs">
           <div className="flex justify-between items-start mb-3">
             <div>
               <h3 className="font-semibold text-sm text-[#202124] mb-0.5">{indicator.label}</h3>

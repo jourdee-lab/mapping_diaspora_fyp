@@ -20,8 +20,8 @@ export function ChoroplethLegend({ title, unit, breaks, colors }: ChoroplethLege
   };
 
   return (
-    <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-float p-4 max-w-[220px]">
-      <h4 className="font-semibold text-xs text-[#202124] mb-3 truncate">{title}</h4>
+    <div className="bg-white/90 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-float p-3 md:p-4 max-w-[170px] md:max-w-[220px]">
+      <h4 className="font-semibold text-xs text-[#202124] mb-2 md:mb-3 truncate">{title}</h4>
       <div className="space-y-1">
         {colors.map((color, index) => {
           const minValue = breaks[index];
