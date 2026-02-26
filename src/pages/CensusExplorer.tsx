@@ -37,8 +37,8 @@ export default function CensusExplorer() {
       {/* Header - floating on top */}
       <Header />
 
-      {/* Floating Left Panel */}
-      <div className="absolute top-24 left-5 z-20 w-80">
+      {/* Floating Left Panel – desktop only */}
+      <div className="hidden md:block absolute top-24 left-5 z-20 w-80">
         <div className="bg-white rounded-3xl shadow-float overflow-hidden">
           {/* Panel Header */}
           <div className="px-5 pt-5 pb-3">
@@ -88,8 +88,8 @@ export default function CensusExplorer() {
         </div>
       </div>
 
-      {/* Floating Year Toggle - Top Center */}
-      <div className="absolute top-24 left-1/2 -translate-x-1/2 z-20">
+      {/* Floating Year Toggle – left on mobile, top-centre on desktop */}
+      <div className="absolute top-24 left-2 md:left-1/2 md:-translate-x-1/2 z-20">
         <div className="relative inline-flex items-center bg-white rounded-full p-1 shadow-float">
           <div
             className="absolute h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
@@ -104,7 +104,7 @@ export default function CensusExplorer() {
           />
           <button
             onClick={() => handleYearChange(1981)}
-            className={`relative z-10 px-8 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-5 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
               selectedYear === 1981
                 ? 'text-white'
                 : 'text-[#5f6368] hover:text-[#202124]'
@@ -114,7 +114,7 @@ export default function CensusExplorer() {
           </button>
           <button
             onClick={() => handleYearChange(1991)}
-            className={`relative z-10 px-8 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-5 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
               selectedYear === 1991
                 ? 'text-white'
                 : 'text-[#5f6368] hover:text-[#202124]'
@@ -124,7 +124,7 @@ export default function CensusExplorer() {
           </button>
           <button
             onClick={() => handleYearChange(2001)}
-            className={`relative z-10 px-8 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-5 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
               selectedYear === 2001
                 ? 'text-white'
                 : 'text-[#5f6368] hover:text-[#202124]'
