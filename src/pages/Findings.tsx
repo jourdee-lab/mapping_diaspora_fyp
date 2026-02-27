@@ -7,15 +7,15 @@ const Findings = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="container mx-auto px-8 py-12 max-w-5xl">
-        <h1 className="text-4xl font-bold text-foreground mb-4">Findings and Analysis</h1>
-        <p className="text-foreground/70 text-lg mb-8">
+      <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
+        <h1 className="text-2xl sm:text-4xl font-bold text-foreground mb-4">Findings and Analysis</h1>
+        <p className="text-foreground/70 text-base sm:text-lg mb-8">
           Spatial analysis of Chinese immigrant integration in Manchester across three census years (1981, 1991, 2001),
           based on 33 harmonised ward geographies and Small Area Statistics data.
         </p>
 
         {/* Summary card */}
-        <Card className="p-8 mb-8 bg-primary/5 border-primary/20">
+        <Card className="p-4 sm:p-8 mb-8 bg-primary/5 border-primary/20">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Overview</h2>
           <p className="text-foreground/90 leading-relaxed text-lg mb-4">
             Manchester's Chinese community grew from approximately 2,400 Far East-born residents (0.55% of the city's population)
@@ -24,27 +24,27 @@ const Findings = () => {
             the settled, family-based segment of the community moved measurably closer to local socioeconomic norms over the
             period, while a growing student and transient population continued to depress aggregate indicators.
           </p>
-          <div className="grid grid-cols-3 gap-6 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">0.43 → 0.32</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary">0.43 → 0.32</div>
               <div className="text-sm text-foreground/60 mt-1">Index of Dissimilarity 1981 to 2001</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">+7.3pp</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary">+7.3pp</div>
               <div className="text-sm text-foreground/60 mt-1">Mean ward owner-occupation rise</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">-0.36pp</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary">-0.36pp</div>
               <div className="text-sm text-foreground/60 mt-1">Mean ward severe overcrowding fall</div>
             </div>
           </div>
         </Card>
 
         {/* RQ1 */}
-        <Card className="p-8 mb-8">
+        <Card className="p-4 sm:p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-2xl font-semibold text-foreground">Spatial Distribution and Concentration (1981 to 2001)</h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Spatial Distribution and Concentration (1981 to 2001)</h2>
           </div>
           <div className="space-y-6 text-foreground/90 leading-relaxed">
 
@@ -61,10 +61,10 @@ const Findings = () => {
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr className="border-b border-border">
-                      <th className="text-left py-2 pr-4 font-semibold">Rank</th>
-                      <th className="text-left py-2 pr-4 font-semibold">1981 (Far East-born)</th>
-                      <th className="text-left py-2 pr-4 font-semibold">1991 (Ethnic Chinese)</th>
-                      <th className="text-left py-2 font-semibold">2001 (Ethnic Chinese)</th>
+                      <th className="text-left py-2 pr-4 font-semibold">#</th>
+                      <th className="text-left py-2 pr-4 font-semibold">1981</th>
+                      <th className="text-left py-2 pr-4 font-semibold">1991</th>
+                      <th className="text-left py-2 font-semibold">2001</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border/50">
@@ -99,7 +99,7 @@ const Findings = () => {
                 (approximately 0.70) or Black Caribbean (approximately 0.55) communities in comparable
                 UK cities at the same period.
               </p>
-              <div className="bg-muted/30 p-4 rounded-lg flex gap-8">
+              <div className="bg-muted/30 p-4 rounded-lg grid grid-cols-3 gap-4">
                 {[['1981', '0.43'], ['1991', '0.28'], ['2001', '0.32']].map(([yr, val]) => (
                   <div key={yr} className="text-center">
                     <div className="text-xl font-bold text-primary">{val}</div>
@@ -142,10 +142,10 @@ const Findings = () => {
         </Card>
 
         {/* RQ2 */}
-        <Card className="p-8 mb-8">
+        <Card className="p-4 sm:p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <Home className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-2xl font-semibold text-foreground">Housing Tenure and Quality</h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Housing Tenure and Quality</h2>
           </div>
           <div className="space-y-6 text-foreground/90 leading-relaxed">
 
@@ -198,10 +198,10 @@ const Findings = () => {
         </Card>
 
         {/* RQ3 */}
-        <Card className="p-8 mb-8">
+        <Card className="p-4 sm:p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <BarChart3 className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-2xl font-semibold text-foreground">Employment and Economic Position</h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Employment and Economic Position</h2>
           </div>
           <div className="space-y-6 text-foreground/90 leading-relaxed">
 
@@ -217,7 +217,7 @@ const Findings = () => {
                 between student-dominated inner wards and family-settled suburban wards reveals two distinct
                 Chinese sub-populations with fundamentally different economic profiles.
               </p>
-              <div className="bg-muted/30 p-4 rounded-lg grid grid-cols-3 gap-4 text-center text-sm">
+              <div className="bg-muted/30 p-4 rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-center text-sm">
                 <div>
                   <div className="text-lg font-bold text-primary">52.8%</div>
                   <div className="text-foreground/60">Economic activity rate</div>
@@ -264,10 +264,10 @@ const Findings = () => {
         </Card>
 
         {/* RQ4 */}
-        <Card className="p-8 mb-8">
+        <Card className="p-4 sm:p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <Users className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-2xl font-semibold text-foreground">Age Structure and Settlement Depth (1991)</h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Age Structure and Settlement Depth (1991)</h2>
           </div>
           <div className="space-y-6 text-foreground/90 leading-relaxed">
 
@@ -326,10 +326,10 @@ const Findings = () => {
         </Card>
 
         {/* RQ5 */}
-        <Card className="p-8 mb-8">
+        <Card className="p-4 sm:p-8 mb-8">
           <div className="flex items-center gap-3 mb-6">
             <TrendingUp className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-2xl font-semibold text-foreground">Temporal Change and Integration Trajectory</h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Temporal Change and Integration Trajectory</h2>
           </div>
           <div className="space-y-6 text-foreground/90 leading-relaxed">
 
@@ -348,9 +348,9 @@ const Findings = () => {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left py-2 pr-4 font-semibold">Ward</th>
-                    <th className="text-right py-2 pr-4 font-semibold">Chinese % change</th>
-                    <th className="text-right py-2 pr-4 font-semibold">Owner-occ change</th>
-                    <th className="text-right py-2 font-semibold">Overcrowding change</th>
+                    <th className="text-right py-2 pr-4 font-semibold">Chinese %</th>
+                    <th className="text-right py-2 pr-4 font-semibold hidden sm:table-cell">Owner-occ</th>
+                    <th className="text-right py-2 font-semibold hidden sm:table-cell">Overcrowding</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
@@ -366,8 +366,8 @@ const Findings = () => {
                     <tr key={ward}>
                       <td className="py-2 pr-4 font-medium">{ward}</td>
                       <td className={`py-2 pr-4 text-right ${ch.startsWith('+') ? 'text-primary' : 'text-destructive'}`}>{ch}</td>
-                      <td className={`py-2 pr-4 text-right ${oo.startsWith('+') ? 'text-primary' : 'text-destructive'}`}>{oo}</td>
-                      <td className={`py-2 text-right ${oc.startsWith('-') ? 'text-primary' : 'text-destructive'}`}>{oc}</td>
+                      <td className={`py-2 pr-4 text-right hidden sm:table-cell ${oo.startsWith('+') ? 'text-primary' : 'text-destructive'}`}>{oo}</td>
+                      <td className={`py-2 text-right hidden sm:table-cell ${oc.startsWith('-') ? 'text-primary' : 'text-destructive'}`}>{oc}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -377,10 +377,10 @@ const Findings = () => {
         </Card>
 
         {/* Synthesis */}
-        <Card className="p-8">
+        <Card className="p-4 sm:p-8">
           <div className="flex items-center gap-3 mb-6">
             <Building2 className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-2xl font-semibold text-foreground">Synthesis: Integration in Context</h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Synthesis: Integration in Context</h2>
           </div>
           <div className="space-y-4 text-foreground/90 leading-relaxed">
             <p>
