@@ -1,6 +1,5 @@
 import { Header } from '@/components/Header';
 import { Card } from '@/components/ui/card';
-import { Database, Code2, Download, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Methodology = () => {
@@ -13,11 +12,8 @@ const Methodology = () => {
 
         {/* Research Overview */}
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold text-foreground">Research Overview</h2>
-          </div>
-          <div className="space-y-4 text-foreground/90 leading-relaxed">
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Research Overview</h2>
+          <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
               This project analyses the spatial distribution and socioeconomic integration of Chinese immigrant communities
               in Greater Manchester across three census years <strong>1981, 1991, and 2001</strong>. By combining
@@ -43,47 +39,56 @@ const Methodology = () => {
 
         {/* Data Pipeline */}
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <Code2 className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold text-foreground">Data Pipeline</h2>
-          </div>
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Data Pipeline</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed">
-            <p>
+            <p className="text-justify">
               A reproducible, automated data pipeline built with Python (13 numbered scripts) handles the entire
               workflow from raw census ingestion to web-ready GeoJSON. Each stage is independently rerunnable and
               configured via YAML definition files.
             </p>
-            <div className="bg-muted/30 p-6 rounded-lg space-y-3">
-              <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-primary sm:min-w-[160px]">1 · Ingest:</span>
-                <span>1981 and 1991 SAS tables arrive as 4–5 horizontal CSV parts per table and are concatenated on <code className="text-xs bg-muted px-1 py-0.5 rounded">zoneid</code>. 2001 Census Area Statistics arrive as long-format ONS dissemination files, pivoted to wide format. All years are filtered to Greater Manchester by LAD prefix (<code className="text-xs bg-muted px-1 py-0.5 rounded">03BN</code> for 1981/1991, <code className="text-xs bg-muted px-1 py-0.5 rounded">00BN</code> for 2001) via <code className="text-xs bg-muted px-1 py-0.5 rounded">sas_raw_file_mapping.yml</code></span>
-              </div>
-              <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-primary sm:min-w-[160px]">2 · Compute Indicators:</span>
-                <span>29 socioeconomic indicators are derived per geographic unit using formula definitions in <code className="text-xs bg-muted px-1 py-0.5 rounded">indicators.yml</code>, producing a single indicator CSV per census year</span>
-              </div>
-              <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-primary sm:min-w-[160px]">3 · Spatial Join:</span>
-                <span>Indicator CSVs are joined to boundary shapefiles (<code className="text-xs bg-muted px-1 py-0.5 rounded">ED_1981_EW.shp</code>, <code className="text-xs bg-muted px-1 py-0.5 rounded">england_wa_1991.shp</code>, <code className="text-xs bg-muted px-1 py-0.5 rounded">england_oa_2001.shp</code>) using GeoPandas, validated in QGIS with a 100% match rate</span>
-              </div>
-              <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-primary sm:min-w-[160px]">4 · Harmonise:</span>
-                <span>Ward boundaries are harmonised to a common 2001 anchor geography (<code className="text-xs bg-muted px-1 py-0.5 rounded">england_caswa_2001_clipped.shp</code>). 1981 EDs are aggregated by areal interpolation; 1991 wards map directly — boundaries are geographically identical, only codes changed</span>
-              </div>
-              <div className="flex flex-col sm:flex-row items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-primary sm:min-w-[160px]">5 · Export:</span>
-                <span>Joined spatial data is exported as optimised GeoJSON for the web application and GeoPackage for archival use in QGIS</span>
-              </div>
-            </div>
+            <ol className="divide-y divide-border/60">
+              <li className="flex items-start gap-4 py-4 first:pt-0">
+                <span className="flex-none w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center mt-0.5">1</span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground mb-1">Ingest</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed text-justify">1981 and 1991 SAS tables arrive as 4–5 horizontal CSV parts per table and are concatenated on <code className="text-xs bg-muted px-1 py-0.5 rounded">zoneid</code>. 2001 Census Area Statistics arrive as long-format ONS dissemination files, pivoted to wide format. All years are filtered to Greater Manchester by LAD prefix (<code className="text-xs bg-muted px-1 py-0.5 rounded">03BN</code> for 1981/1991, <code className="text-xs bg-muted px-1 py-0.5 rounded">00BN</code> for 2001) via <code className="text-xs bg-muted px-1 py-0.5 rounded">sas_raw_file_mapping.yml</code>.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 py-4">
+                <span className="flex-none w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center mt-0.5">2</span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground mb-1">Compute Indicators</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed text-justify">29 socioeconomic indicators are derived per geographic unit using formula definitions in <code className="text-xs bg-muted px-1 py-0.5 rounded">indicators.yml</code>, producing a single indicator CSV per census year.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 py-4">
+                <span className="flex-none w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center mt-0.5">3</span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground mb-1">Spatial Join</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed text-justify">Indicator CSVs are joined to boundary shapefiles (<code className="text-xs bg-muted px-1 py-0.5 rounded">ED_1981_EW.shp</code>, <code className="text-xs bg-muted px-1 py-0.5 rounded">england_wa_1991.shp</code>, <code className="text-xs bg-muted px-1 py-0.5 rounded">england_oa_2001.shp</code>) using GeoPandas, validated in QGIS with a 100% match rate.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 py-4">
+                <span className="flex-none w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center mt-0.5">4</span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground mb-1">Harmonise</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed text-justify">Ward boundaries are harmonised to a common 2001 anchor geography (<code className="text-xs bg-muted px-1 py-0.5 rounded">england_caswa_2001_clipped.shp</code>). 1981 EDs are aggregated by areal interpolation; 1991 wards map directly — boundaries are geographically identical, only codes changed.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 py-4 last:pb-0">
+                <span className="flex-none w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center mt-0.5">5</span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground mb-1">Export</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed">Joined spatial data is exported as optimised GeoJSON for the web application and GeoPackage for archival use in QGIS.</p>
+                </div>
+              </li>
+            </ol>
           </div>
         </Card>
 
         {/* Technology Stack */}
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <Database className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold text-foreground">Technology Stack</h2>
-          </div>
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Technology Stack</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-muted/30 p-6 rounded-lg space-y-4">
               <h3 className="font-semibold text-foreground text-base border-b border-border pb-2">Frontend & Visualisation</h3>
@@ -122,11 +127,8 @@ const Methodology = () => {
 
         {/* Raw Data Inventory */}
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <Database className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold text-foreground">Census Raw Data Inventory</h2>
-          </div>
-          <p className="text-foreground/90 mb-6 leading-relaxed">
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Census Raw Data Inventory</h2>
+          <p className="text-foreground/90 mb-6 leading-relaxed text-justify">
             All raw files are sourced from the{' '}
             <a href="https://census.ukdataservice.ac.uk/get-data/historical-census" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">UK Data Service Census Archive</a>{' '}
             (free registration required). Boundary shapefiles are obtained via EDINA Census Geography.
@@ -244,30 +246,25 @@ const Methodology = () => {
 
         {/* Resources */}
         <Card className="p-4 sm:p-6 md:p-8">
-          <div className="flex items-center gap-3 mb-4">
-            <Download className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold text-foreground">Reproduce This Project</h2>
-          </div>
-          <p className="text-foreground/90 mb-4 leading-relaxed">
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Reproduce This Project</h2>
+          <p className="text-foreground/90 mb-4 leading-relaxed text-justify">
             The full data pipeline source code is publicly available. Once you have obtained the raw census files
             from the UK Data Service and placed them in <code className="text-xs bg-muted px-1 py-0.5 rounded">data/raw/</code> as described above,
             run the 13 numbered pipeline scripts in order to reproduce all indicators and GeoJSON outputs.
           </p>
-          <p className="text-foreground/90 mb-6 leading-relaxed text-sm text-muted-foreground">
+          <p className="text-foreground/90 mb-6 leading-relaxed text-sm text-muted-foreground text-justify">
             Free UK Data Service registration is required to download census microdata. Search the catalogue for
             "Small Area Statistics 1981", "1991 Census Small Area Statistics England &amp; Wales", and
             "2001 Census Area Statistics" to locate the relevant datasets.
           </p>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
             <a href="https://census.ukdataservice.ac.uk/get-data/historical-census" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <Button variant="default" className="w-full sm:w-auto gap-2">
-                <Download className="w-4 h-4 shrink-0" />
+              <Button variant="default" className="w-full sm:w-auto">
                 UK Data Service — Census Archive
               </Button>
             </a>
             <a href="https://github.com/jourdee-lab/manchester-spatial-analysis-data-lab" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <Button variant="outline" className="w-full sm:w-auto gap-2">
-                <Code2 className="w-4 h-4 shrink-0" />
+              <Button variant="outline" className="w-full sm:w-auto">
                 View Source Code
               </Button>
             </a>

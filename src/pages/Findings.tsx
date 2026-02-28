@@ -1,6 +1,5 @@
 import { Header } from '@/components/Header';
 import { Card } from '@/components/ui/card';
-import { TrendingUp, MapPin, Building2, Users, Home, BarChart3 } from 'lucide-react';
 
 const Findings = () => {
   return (
@@ -9,7 +8,7 @@ const Findings = () => {
 
       <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
         <h1 className="text-2xl sm:text-4xl font-bold text-foreground mb-4">Findings and Analysis</h1>
-        <p className="text-foreground/70 text-base sm:text-lg mb-8">
+        <p className="text-foreground/70 text-base sm:text-lg mb-8 text-justify">
           Spatial analysis of Chinese immigrant integration in Manchester across three census years (1981, 1991, 2001),
           based on 33 harmonised ward geographies and Small Area Statistics data.
         </p>
@@ -17,7 +16,7 @@ const Findings = () => {
         {/* Summary card */}
         <Card className="p-4 sm:p-8 mb-8 bg-primary/5 border-primary/20">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Overview</h2>
-          <p className="text-foreground/90 leading-relaxed text-lg mb-4">
+          <p className="text-foreground/90 leading-relaxed text-lg mb-4 text-justify">
             Manchester's Chinese community grew from approximately 2,400 Far East-born residents (0.55% of the city's population)
             in 1981 to over 5,100 self-identified Chinese in 2001 (1.31%), a more than twofold increase set against a backdrop
             of citywide depopulation from 433,000 to 393,000. The analysis reveals a trajectory of asymmetric convergence:
@@ -42,11 +41,8 @@ const Findings = () => {
 
         {/* RQ1 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Spatial Distribution and Concentration (1981 to 2001)</h2>
-          </div>
-          <div className="space-y-6 text-foreground/90 leading-relaxed">
+          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Spatial Distribution and Concentration (1981 to 2001)</h2>
+          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
 
             <div>
               <h3 className="font-semibold text-foreground mb-3">Peak Concentration Wards</h3>
@@ -91,7 +87,7 @@ const Findings = () => {
               <h3 className="font-semibold text-foreground mb-3">Index of Dissimilarity</h3>
               <p className="mb-3">
                 Residential segregation, measured by the Index of Dissimilarity (D), fell from 0.43 in 1981 to 0.28
-                in 1991before a partial rebound to 0.32 by 2001. The 1981 figure is elevated by the extreme
+                in 1991 before a partial rebound to 0.32 by 2001. The 1981 figure is elevated by the extreme
                 concentration in Hulme and by the birthplace proxy, which excludes UK-born Chinese residents.
                 The partial rebound between 1991 and 2001 plausibly reflects re-concentration around the
                 redeveloped Chinatown in Central ward rather than a reversal of the broader dispersal trend.
@@ -143,11 +139,8 @@ const Findings = () => {
 
         {/* RQ2 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Home className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Housing Tenure and Quality</h2>
-          </div>
-          <div className="space-y-6 text-foreground/90 leading-relaxed">
+          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Housing Tenure and Quality</h2>
+          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
 
             <div>
               <h3 className="font-semibold text-foreground mb-3">Owner-Occupation</h3>
@@ -199,11 +192,8 @@ const Findings = () => {
 
         {/* RQ3 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <BarChart3 className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Employment and Economic Position</h2>
-          </div>
-          <div className="space-y-6 text-foreground/90 leading-relaxed">
+          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Employment and Economic Position</h2>
+          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
 
             <div>
               <h3 className="font-semibold text-foreground mb-3">Chinese Employment Rates (1991)</h3>
@@ -265,11 +255,8 @@ const Findings = () => {
 
         {/* RQ4 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Users className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Age Structure and Settlement Depth (1991)</h2>
-          </div>
-          <div className="space-y-6 text-foreground/90 leading-relaxed">
+          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Age Structure and Settlement Depth (1991)</h2>
+          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
 
             <div>
               <h3 className="font-semibold text-foreground mb-3">Age Profile</h3>
@@ -327,11 +314,8 @@ const Findings = () => {
 
         {/* RQ5 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <TrendingUp className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Temporal Change and Integration Trajectory</h2>
-          </div>
-          <div className="space-y-6 text-foreground/90 leading-relaxed">
+          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Temporal Change and Integration Trajectory</h2>
+          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
 
             <p>
               Across all 33 wards, Chinese concentration rose in 32 cases between 1981 and 2001 (mean increase:
@@ -378,11 +362,8 @@ const Findings = () => {
 
         {/* Synthesis */}
         <Card className="p-4 sm:p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Building2 className="w-6 h-6 text-primary flex-shrink-0" />
-            <h2 className="text-lg sm:text-2xl font-semibold text-foreground">Synthesis: Integration in Context</h2>
-          </div>
-          <div className="space-y-4 text-foreground/90 leading-relaxed">
+          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Synthesis: Integration in Context</h2>
+          <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
               The overall integration trajectory of Manchester's Chinese community between 1981 and 2001
               is best characterised as asymmetric convergence. The settled, family-based segment showed
