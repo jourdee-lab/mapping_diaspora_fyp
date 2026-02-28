@@ -28,7 +28,7 @@ const About = () => {
               The historical record of small minority communities is rarely preserved in forms amenable to aggregate spatial analysis. Census small area statistics provide a rare opportunity to reconstruct population distributions at fine geographic resolution across multiple decades, but the data requires substantial processing before spatial patterns become legible. Applying GIS methods to digitised boundary data and historical census tables allows questions about residential change and socioeconomic position to be posed at a scale and precision that qualitative archival sources alone cannot support.
             </p>
             <p>
-              Presenting this analysis through an interactive web application extends the research beyond the academic paper. Choropleth mapping at ward and enumeration district level makes the underlying spatial patterns directly inspectable, allowing readers to situate specific areas within the broader metropolitan distribution and to compare indicators across census years. The application does not substitute for interpretive analysis but provides a transparent interface to the underlying data on which that analysis rests.
+              Presenting this analysis through an interactive web application extends the research beyond the academic paper. Choropleth mapping at ward and enumeration district level makes the underlying spatial patterns directly readable, allowing readers to situate specific areas within the broader metropolitan distribution and to compare indicators across census years. The application does not replace interpretive analysis but gives direct access to the data on which that analysis rests.
             </p>
           </div>
         </Card>

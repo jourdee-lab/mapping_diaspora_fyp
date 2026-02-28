@@ -18,8 +18,8 @@ const Findings = () => {
           <h2 className="text-2xl font-semibold text-foreground mb-4">Overview</h2>
           <p className="text-foreground/90 leading-relaxed text-lg mb-4 text-justify">
             Manchester's Chinese community grew from approximately 2,400 Far East-born residents (0.55% of the city's population)
-            in 1981 to over 5,100 self-identified Chinese in 2001 (1.31%), a more than twofold increase set against a backdrop
-            of citywide depopulation from 433,000 to 393,000. The analysis reveals a trajectory of asymmetric convergence:
+            in 1981 to over 5,100 self-identified Chinese in 2001 (1.31%), a more than twofold increase
+            amid steady citywide depopulation from 433,000 to 393,000. The evidence points to a pattern of asymmetric convergence:
             the settled, family-based segment of the community moved measurably closer to local socioeconomic norms over the
             period, while a growing student and transient population continued to depress aggregate indicators.
           </p>
@@ -113,7 +113,7 @@ const Findings = () => {
                   <p className="text-sm">
                     Ardwick, Cheetham, Hulme, and Longsight maintained Chinese presence across all three census
                     periods, providing continuity of ethnic infrastructure, community institutions, and catering
-                    businesses throughout the study window.
+                    businesses throughout the study period.
                   </p>
                 </div>
                 <div className="border-l-4 border-blue-400 pl-4">
@@ -204,8 +204,8 @@ const Findings = () => {
                 employment rate of only 26.6%, reflecting its large student cohort. In contrast, suburban
                 family-settlement wards showed Chinese employment rates of 70 to 74% (Baguley: 73.7%,
                 Northenden: 72.9%, Moston: 70.5%), substantially above local ward averages. This bifurcation
-                between student-dominated inner wards and family-settled suburban wards reveals two distinct
-                Chinese sub-populations with fundamentally different economic profiles.
+                between student-dominated inner wards and family-settled suburban areas points to two distinct
+                Chinese sub-populations whose economic profiles diverged sharply.
               </p>
               <div className="bg-muted/30 p-4 rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-center text-sm">
                 <div>
@@ -297,7 +297,7 @@ const Findings = () => {
             <div>
               <h3 className="font-semibold text-foreground mb-3">Two Settlement Geographies</h3>
               <p>
-                The age data reveals a clear spatial bifurcation. Inner-city wards near university campuses
+                The age distribution points to a clear spatial bifurcation. Inner-city wards near university campuses
                 (Rusholme: 64.4% aged 16 to 29, Barlow Moor: 62.5%, Hulme: 56.2%) had profiles dominated by
                 young adults, consistent with student and newly arrived catering-worker populations. Suburban
                 wards (Northenden, Sharston, Newton Heath) showed 40 to 43% of their Chinese residents under
@@ -388,9 +388,9 @@ const Findings = () => {
               This pattern of institutional visibility alongside residential dispersal distinguishes
               Manchester's Chinese community from both the sustained enclave model documented for
               some South Asian groups and the rapid full assimilation predicted by classical spatial
-              assimilation theory, suggesting instead a selective and geographically selective form
-              of integration in which ethnic infrastructure was maintained while residential and
-              economic boundaries became progressively more permeable.
+              assimilation theory, suggesting instead a selective form
+              of integration in which ethnic infrastructure was maintained
+              even as residential and economic boundaries grew gradually more permeable.
             </p>
             <div className="bg-muted/30 p-4 rounded-lg mt-4">
               <p className="text-sm text-foreground/70">
