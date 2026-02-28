@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 export const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
+  };
 
   const links = [
     { path: '/', label: 'Explorer' },
@@ -17,9 +24,16 @@ export const Header = () => {
     <div className="relative z-40 mx-3 md:mx-5 mt-4 mb-2">
       {/* Main pill bar */}
       <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-float px-4 md:px-6 py-3 flex items-center justify-between">
-        <h1 className="text-sm md:text-base font-semibold text-[#202124] tracking-tight whitespace-nowrap">
+        <button
+          onClick={handleLogoClick}
+          className={cn(
+            'text-sm md:text-base font-semibold text-[#202124] tracking-tight whitespace-nowrap bg-transparent border-none p-0',
+            location.pathname !== '/' && 'cursor-pointer hover:text-[#1a73e8] transition-colors duration-200'
+          )}
+          aria-label="Go to Explorer"
+        >
           Mapping the Diaspora
-        </h1>
+        </button>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">

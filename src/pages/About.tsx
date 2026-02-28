@@ -11,7 +11,7 @@ const About = () => {
         
         <Card className="p-8 mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Research Context</h2>
-          <div className="space-y-4 text-foreground/90 leading-relaxed">
+          <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
               This project examines the spatial distribution and socioeconomic position of Chinese immigrant communities in Manchester across the census years 1981, 1991, and 2001. Existing scholarship on ethnic settlement in British cities has concentrated heavily on inner-city enclaves such as Chinatown districts, a focus that obscures the extent to which communities dispersed across wider metropolitan areas over time. This project takes a metropolitan-scale approach, mapping settlement and housing patterns across all Manchester Enumeration Districts to assess how the spatial geography of this community changed over two decades.
             </p>
@@ -23,7 +23,7 @@ const About = () => {
 
         <Card className="p-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Digital Humanities Approach</h2>
-          <div className="space-y-4 text-foreground/90 leading-relaxed">
+          <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
               The historical record of small minority communities is rarely preserved in forms amenable to aggregate spatial analysis. Census small area statistics provide a rare opportunity to reconstruct population distributions at fine geographic resolution across multiple decades, but the data requires substantial processing before spatial patterns become legible. Applying GIS methods to digitised boundary data and historical census tables allows questions about residential change and socioeconomic position to be posed at a scale and precision that qualitative archival sources alone cannot support.
             </p>
