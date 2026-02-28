@@ -31,7 +31,7 @@ const Methodology = () => {
               </div>
               <div className="bg-muted/30 p-4 rounded-lg">
                 <p className="font-semibold text-primary mb-1">Source Data</p>
-                <p className="text-sm">UK Census Small Area Statistics: 4 tables for 1981, 6 tables for 1991, and 8 ONS Census Area Statistics tables for 2001 — all sourced via the UK Data Service</p>
+                <p className="text-sm">UK Census Small Area Statistics: 4 tables for 1981, 6 tables for 1991, and 8 ONS Census Area Statistics tables for 2001, all sourced via the UK Data Service</p>
               </div>
             </div>
           </div>
@@ -42,8 +42,8 @@ const Methodology = () => {
           <h2 className="text-2xl font-semibold text-foreground mb-4">Data Pipeline</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed">
             <p className="text-justify">
-              A reproducible, automated data pipeline built with Python (13 numbered scripts) handles the entire
-              workflow from raw census ingestion to web-ready GeoJSON. Each stage is independently rerunnable and
+              A reproducible data pipeline written in Python (13 numbered scripts) takes the project
+              from raw census ingestion to web-ready GeoJSON. Each stage is independently rerunnable and
               configured via YAML definition files.
             </p>
             <ol className="divide-y divide-border/60">
@@ -72,7 +72,7 @@ const Methodology = () => {
                 <span className="flex-none w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center mt-0.5">4</span>
                 <div className="min-w-0">
                   <p className="font-semibold text-foreground mb-1">Harmonise</p>
-                  <p className="text-sm text-foreground/80 leading-relaxed text-justify">Ward boundaries are harmonised to a common 2001 anchor geography (<code className="text-xs bg-muted px-1 py-0.5 rounded">england_caswa_2001_clipped.shp</code>). 1981 EDs are aggregated by areal interpolation; 1991 wards map directly — boundaries are geographically identical, only codes changed.</p>
+                  <p className="text-sm text-foreground/80 leading-relaxed text-justify">Ward boundaries are harmonised to a common 2001 anchor geography (<code className="text-xs bg-muted px-1 py-0.5 rounded">england_caswa_2001_clipped.shp</code>). 1981 EDs are aggregated by areal interpolation; 1991 wards map directly; boundaries are geographically identical, only codes changed.</p>
                 </div>
               </li>
               <li className="flex items-start gap-4 py-4 last:pb-0">
@@ -138,7 +138,7 @@ const Methodology = () => {
           <div className="space-y-8">
             {/* 1981 */}
             <div>
-              <h3 className="font-semibold text-foreground mb-1 text-base">1981 — Small Area Statistics (SAS)</h3>
+              <h3 className="font-semibold text-foreground mb-1 text-base">1981: Small Area Statistics (SAS)</h3>
               <p className="text-xs text-muted-foreground mb-3">Geography: Enumeration Districts &nbsp;·&nbsp; LAD prefix: <code className="bg-muted px-1 rounded">03BN</code> &nbsp;·&nbsp; Place files in <code className="bg-muted px-1 rounded">data/raw/sas/</code></p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -151,7 +151,7 @@ const Methodology = () => {
                   </thead>
                   <tbody className="divide-y divide-border/50 text-foreground/80">
                     {[
-                      ['1981_sas02_part{1–5}.csv', 'SAS02', 'Demographics — total population by age/sex'],
+                      ['1981_sas02_part{1–5}.csv', 'SAS02', 'Demographics: total population by age/sex'],
                       ['1981_sas04_part{1–5}.csv', 'SAS04', 'Country of birth (birthplace)'],
                       ['1981_sas07_part{1–5}.csv', 'SAS07', 'Employment & economic activity'],
                       ['1981_sas10_part{1–5}.csv', 'SAS10', 'Housing & tenure'],
@@ -170,7 +170,7 @@ const Methodology = () => {
 
             {/* 1991 */}
             <div>
-              <h3 className="font-semibold text-foreground mb-1 text-base">1991 — Small Area Statistics (SAS)</h3>
+              <h3 className="font-semibold text-foreground mb-1 text-base">1991: Small Area Statistics (SAS)</h3>
               <p className="text-xs text-muted-foreground mb-3">Geography: Enumeration Districts aggregated to Electoral Wards &nbsp;·&nbsp; LAD prefix: <code className="bg-muted px-1 rounded">03BN</code> &nbsp;·&nbsp; Place sub-folders in <code className="bg-muted px-1 rounded">data/raw/</code></p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -183,7 +183,7 @@ const Methodology = () => {
                   </thead>
                   <tbody className="divide-y divide-border/50 text-foreground/80">
                     {[
-                      ['s02ews/s02ews{1–4}.csv', 'S02EWS', 'Demographics — age & marital status'],
+                      ['s02ews/s02ews{1–4}.csv', 'S02EWS', 'Demographics: age & marital status'],
                       ['s06ews/s06ews{1–4}.csv', 'S06EWS', 'Ethnic group'],
                       ['s07ews/s07ews{1–4}.csv', 'S07EWS', 'Country of birth'],
                       ['s09ews/s09ews{1–4}.csv', 'S09EWS', 'Economic position'],
@@ -204,7 +204,7 @@ const Methodology = () => {
 
             {/* 2001 */}
             <div>
-              <h3 className="font-semibold text-foreground mb-1 text-base">2001 — Census Area Statistics (CAS)</h3>
+              <h3 className="font-semibold text-foreground mb-1 text-base">2001: Census Area Statistics (CAS)</h3>
               <p className="text-xs text-muted-foreground mb-3">Geography: Output Areas &nbsp;·&nbsp; OA prefix: <code className="bg-muted px-1 rounded">00BN</code> &nbsp;·&nbsp; Place files directly in <code className="bg-muted px-1 rounded">data/raw/</code></p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -219,7 +219,7 @@ const Methodology = () => {
                     {[
                       ['c01cs001_ons.csv', 'CS001EW', 'Total population'],
                       ['c01ct003_ons.csv', 'CT003EW', 'Ethnic group (incl. Chinese/Chinese British)'],
-                      ['c01cs015_ons.csv', 'CS015EW', 'Country of birth — Asia proxy'],
+                      ['c01cs015_ons.csv', 'CS015EW', 'Country of birth (Asia proxy)'],
                       ['c01cs028_ons.csv', 'CS028EW', 'Economic activity (ages 16–74)'],
                       ['c01cs049_ons.csv', 'CS049EW', 'Tenure'],
                       ['c01cs052_ons.csv', 'CS052EW', 'Persons per room (overcrowding)'],
@@ -260,7 +260,7 @@ const Methodology = () => {
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
             <a href="https://census.ukdataservice.ac.uk/get-data/historical-census" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button variant="default" className="w-full sm:w-auto">
-                UK Data Service — Census Archive
+                UK Data Service: Census Archive
               </Button>
             </a>
             <a href="https://github.com/jourdee-lab/manchester-spatial-analysis-data-lab" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
