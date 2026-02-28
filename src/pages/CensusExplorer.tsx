@@ -90,16 +90,16 @@ export default function CensusExplorer() {
 
       {/* Floating Year Toggle – left on mobile, top-centre on desktop */}
       <div className="absolute top-24 left-2 md:left-1/2 md:-translate-x-1/2 z-20">
-        <div className="relative inline-flex items-center bg-white rounded-full p-1 shadow-float">
+        <div className="relative inline-flex items-center bg-white rounded-full p-1 shadow-float overflow-hidden">
           <div
-            className="absolute h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
+            className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
             style={{
               transform:
                 selectedYear === 1981
-                  ? 'translateX(4px)'
+                  ? 'translateX(0)'
                   : selectedYear === 1991
-                  ? 'translateX(calc(100% + 4px))'
-                  : 'translateX(calc(200% + 4px))'
+                  ? 'translateX(100%)'
+                  : 'translateX(200%)'
             }}
           />
           <button

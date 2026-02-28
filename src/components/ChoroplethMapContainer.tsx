@@ -415,7 +415,7 @@ export function ChoroplethMapContainer({
       {/* Indicator Selector - Floating pill top right */}
       {availableIndicators.length > 0 && onIndicatorChange && (
         <div className="absolute top-24 right-2 md:right-4 z-[1000]">
-          <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-float px-3 md:px-4 py-2 md:py-2.5">
+          <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-float px-3 md:px-4 py-1.5 md:py-2">
             <Select
               value={indicator.id}
               onValueChange={(id) => {
