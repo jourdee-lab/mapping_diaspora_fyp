@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
-import type { Feature, FeatureCollection } from 'geojson';
+import { Moon, Sun } from 'lucide-react';
+import type { Feature, FeatureCollection, Geometry } from 'geojson';
 import { WardGeoJSON, WardFeatureProperties, IndicatorMetadata } from '@/types/data';
 import { ChoroplethLegend } from '@/components/ChoroplethLegend';
 import { Button } from './ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Sheet, SheetContent } from './ui/sheet';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ChoroplethMapContainerProps {
   year: 1981 | 1991 | 2001;
@@ -13,7 +16,7 @@ interface ChoroplethMapContainerProps {
   availableIndicators?: IndicatorMetadata[];
 }
 
-type TileLayer = 'street' | 'satellite' | 'light';
+type TileLayer = 'street' | 'satellite' | 'light' | 'dark';
 
 const tileLayers: Record<TileLayer, { url: string; attribution: string }> = {
   street: {
@@ -26,6 +29,10 @@ const tileLayers: Record<TileLayer, { url: string; attribution: string }> = {
   },
   light: {
     url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    attribution: '© OpenStreetMap © CARTO',
+  },
+  dark: {
+    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     attribution: '© OpenStreetMap © CARTO',
   },
 };
@@ -113,6 +120,47 @@ const colorPalettes = {
   diverging_brown_teal: ['#8c510a', '#bf812d', '#dfc27d', '#f6e8c3', '#c7eae5', '#80cdc1', '#35978f', '#01665e'],
 };
 
+// ---------------------------------------------------------------------------
+// Ward Shape SVG — renders the ward's polygon in a normalised 100×100 viewBox
+// ---------------------------------------------------------------------------
+function WardShapeSVG({ geometry, fillColor }: { geometry: Geometry; fillColor: string }) {
+  const rings: number[][][] = [];
+  if (geometry.type === 'Polygon') {
+    (geometry.coordinates as number[][][]).forEach(r => rings.push(r));
+  } else if (geometry.type === 'MultiPolygon') {
+    (geometry.coordinates as number[][][][]).forEach(poly => poly.forEach(r => rings.push(r)));
+  }
+  if (rings.length === 0) return null;
+
+  const flat = rings.flat();
+  const lngs = flat.map(c => c[0]);
+  const lats = flat.map(c => c[1]);
+  const minLng = Math.min(...lngs), maxLng = Math.max(...lngs);
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+  const range = Math.max(maxLng - minLng, maxLat - minLat) || 1;
+  const pad = range * 0.06;
+
+  // Project to 0-100 square, Y flipped (SVG y=0 is top, lat increases upward)
+  const px = (lng: number) => ((lng - minLng + pad) / (range + 2 * pad)) * 100;
+  const py = (lat: number) => 100 - ((lat - minLat + pad) / (range + 2 * pad)) * 100;
+
+  return (
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
+      {rings.map((ring, i) => (
+        <polygon
+          key={i}
+          points={ring.map(([lng, lat]) => `${px(lng)},${py(lat)}`).join(' ')}
+          fill={fillColor}
+          fillOpacity={0.8}
+          stroke="white"
+          strokeWidth={1.2}
+          strokeLinejoin="round"
+        />
+      ))}
+    </svg>
+  );
+}
+
 export function ChoroplethMapContainer({
   year,
   indicator,
@@ -124,11 +172,36 @@ export function ChoroplethMapContainer({
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
   const tileLayerRef = useRef<L.TileLayer | null>(null);
 
-  const [currentTileLayer, setCurrentTileLayer] = useState<TileLayer>('light');
+  const isMobile = useIsMobile();
+
+  // Initialise from localStorage synchronously to avoid flash
+  const [dark, setDark] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const stored = localStorage.getItem('theme');
+    const isDark = stored === 'dark';
+    if (isDark) document.documentElement.classList.add('dark');
+    return isDark;
+  });
+
+  const toggleDark = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+    // Auto-switch between the default light/dark CARTO tiles
+    setCurrentTileLayer(prev =>
+      prev === 'light' || prev === 'dark' ? (next ? 'dark' : 'light') : prev
+    );
+  };
+
+  const [currentTileLayer, setCurrentTileLayer] = useState<TileLayer>(() =>
+    typeof window !== 'undefined' && localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'
+  );
   const [geojsonData, setGeojsonData] = useState<WardGeoJSON | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedFeature, setSelectedFeature] = useState<WardFeatureProperties | null>(null);
+  const [selectedGeometry, setSelectedGeometry] = useState<Geometry | null>(null);
 
   // Load GeoJSON data
   // Note: For optimal rendering performance and clean boundaries:
@@ -244,8 +317,17 @@ export function ChoroplethMapContainer({
       console.error('[Map Init] ✗ Error:', err);
     }
 
+    // Track container size changes (orientation change, virtual keyboard, window resize)
+    const resizeObserver = new ResizeObserver(() => {
+      mapRef.current?.invalidateSize();
+    });
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
     // Cleanup only on unmount
     return () => {
+      resizeObserver.disconnect();
       console.log('[Map Init] → Component unmounting, cleaning up map');
       if (mapRef.current) {
         mapRef.current.remove();
@@ -323,12 +405,10 @@ export function ChoroplethMapContainer({
           : 'No data';
 
       const tooltipContent = `
-        <div class="p-2">
-          <div class="font-semibold">${props.ward_name || props.ward_code || 'Unknown Ward'}</div>
-          <div class="text-sm mt-1">
-            <span class="text-gray-600">${indicator.label}:</span>
-            <span class="ml-1 font-medium">${displayValue}</span>
-          </div>
+        <div style="padding:8px 10px;min-width:140px;">
+          <div style="font-weight:600;font-size:13px;color:#202124;margin-bottom:4px;">${props.ward_name || props.ward_code || 'Unknown'}</div>
+          <div style="font-size:12px;color:#5f6368;">${indicator.label}</div>
+          <div style="font-size:14px;font-weight:700;color:#202124;margin-top:2px;">${displayValue}</div>
         </div>
       `;
 
@@ -341,6 +421,7 @@ export function ChoroplethMapContainer({
       layer.on({
         click: () => {
           setSelectedFeature(props as WardFeatureProperties);
+          setSelectedGeometry(feature.geometry);
         },
         mouseover: (e: L.LeafletMouseEvent) => {
           const target = e.target;
@@ -387,35 +468,65 @@ export function ChoroplethMapContainer({
 
       {/* Loading Overlay */}
       {loading && (
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#e8eaed] border-t-[#1a73e8] mx-auto mb-4"></div>
-            <p className="text-sm text-[#5f6368]">Loading census data for {year}...</p>
+            <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary mx-auto mb-4"></div>
+            <p className="text-sm text-muted-foreground">Loading census data for {year}...</p>
           </div>
         </div>
       )}
 
       {/* Error Overlay */}
       {error && (
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
           <div className="text-center p-4">
-            <p className="font-semibold text-[#d93025] mb-2">Error Loading Data</p>
-            <p className="text-sm text-[#5f6368]">{error}</p>
+            <p className="font-semibold text-destructive mb-2">Error Loading Data</p>
+            <p className="text-sm text-muted-foreground">{error}</p>
           </div>
         </div>
       )}
 
       {/* No Data Overlay */}
       {!loading && !error && !geojsonData && (
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
-          <p className="text-sm text-[#5f6368]">No data available for {year}</p>
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
+          <p className="text-sm text-muted-foreground">No data available for {year}</p>
         </div>
       )}
+
+      {/* Map controls column – reset view + dark mode toggle */}
+      <div className="absolute top-40 right-2 md:right-4 z-[1000] flex flex-col gap-2">
+        {/* Reset view */}
+        <button
+          onClick={() => {
+            if (mapRef.current) {
+              mapRef.current.setView([53.4808, -2.2426], 12);
+            }
+          }}
+          title="Reset map view"
+          className="bg-card/90 backdrop-blur-xl rounded-full shadow-float w-9 h-9 flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          aria-label="Reset map to Manchester"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </button>
+
+        {/* Dark mode toggle */}
+        <button
+          onClick={toggleDark}
+          title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="bg-card/90 backdrop-blur-xl rounded-full shadow-float w-9 h-9 flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {dark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+      </div>
 
       {/* Indicator Selector - Floating pill top right */}
       {availableIndicators.length > 0 && onIndicatorChange && (
         <div className="absolute top-24 right-2 md:right-4 z-[1000]">
-          <div className="bg-white/90 backdrop-blur-xl rounded-full shadow-float px-3 md:px-4 py-1.5 md:py-2">
+          <div className="bg-card/90 backdrop-blur-xl rounded-full shadow-float px-3 md:px-4 py-1.5 md:py-2">
             <Select
               value={indicator.id}
               onValueChange={(id) => {
@@ -423,10 +534,10 @@ export function ChoroplethMapContainer({
                 if (selected) onIndicatorChange(selected);
               }}
             >
-              <SelectTrigger className="w-32 md:w-44 h-8 border-0 bg-transparent shadow-none rounded-full text-xs md:text-sm font-medium text-[#202124] focus:ring-0 hover:bg-[#f1f3f4]/50 transition-colors">
+              <SelectTrigger className="w-32 md:w-44 h-8 border-0 bg-transparent shadow-none rounded-full text-xs md:text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent align="end" className="rounded-2xl shadow-float border-[#e8eaed] w-44">
+              <SelectContent align="end" className="rounded-2xl shadow-float border-border w-44">
                 {availableIndicators.map((ind) => (
                   <SelectItem 
                     key={ind.id} 
@@ -454,35 +565,70 @@ export function ChoroplethMapContainer({
         </div>
       )}
 
-      {/* Detail Panel - left side on mobile (avoids legend), bottom-left on desktop */}
-      {selectedFeature && (
-        <div className="absolute bottom-4 md:bottom-6 left-2 right-[186px] md:left-5 md:right-auto z-[1000] bg-white/90 backdrop-blur-xl rounded-3xl shadow-float p-4 md:p-5 md:max-w-xs">
-          <div className="flex justify-between items-start mb-3">
-            <div>
-              <h3 className="font-semibold text-sm text-[#202124] mb-0.5">{indicator.label}</h3>
-              <p className="text-xs text-[#5f6368]">{selectedFeature.ward_name || selectedFeature.ward_code}</p>
-            </div>
-            <Button variant="ghost" size="sm" className="rounded-full h-7 w-7 p-0 text-[#5f6368] hover:bg-[#f1f3f4]" onClick={() => setSelectedFeature(null)}>
-              ×
-            </Button>
-          </div>
-          <div className="space-y-1 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-[#5f6368]">Value</span>
-              <span className="font-semibold text-[#202124]">
-                {(() => {
-                  const val = selectedFeature[indicator.field as keyof typeof selectedFeature] as number | string | null | undefined;
-                  if (typeof val === 'number') {
-                    return indicator.unit === 'percentage'
-                      ? `${(val as number).toFixed(1)}%`
-                      : (val as number).toLocaleString();
-                  }
-                  return 'No data';
-                })()}
-              </span>
-            </div>
-          </div>
+      {/* Mobile indicator info strip – bottom left, visible when no feature is selected */}
+      {!selectedFeature && (
+        <div className="md:hidden absolute bottom-4 left-2 z-[1000] bg-card/90 backdrop-blur-xl rounded-2xl shadow-float p-3 max-w-[160px]">
+          <p className="text-xs font-semibold text-foreground leading-snug">{indicator.label}</p>
+          <p className="text-xs text-muted-foreground mt-1 leading-snug line-clamp-2">{indicator.description}</p>
         </div>
+      )}
+
+      {/* Detail Panel – bottom Sheet on mobile, floating panel on desktop */}
+      {isMobile ? (
+        <Sheet open={!!selectedFeature} onOpenChange={(open) => { if (!open) { setSelectedFeature(null); setSelectedGeometry(null); } }}>
+          <SheetContent side="bottom" className="rounded-t-3xl px-5 pb-8 pt-5 z-[2000]">
+            {selectedFeature && (() => {
+              const val = selectedFeature[indicator.field as keyof typeof selectedFeature] as number | null | undefined;
+              const displayVal = typeof val === 'number'
+                ? indicator.unit === 'percentage' ? `${val.toFixed(1)}%` : val.toLocaleString()
+                : 'No data';
+              const wardColor = getColor(typeof val === 'number' ? val : undefined, breaks, palette);
+              return (
+                <div className="flex gap-4 items-start">
+                  {selectedGeometry && (
+                    <div className="flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden bg-muted">
+                      <WardShapeSVG geometry={selectedGeometry} fillColor={wardColor} />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-sm text-foreground mb-0.5">{selectedFeature.ward_name || selectedFeature.ward_code}</h3>
+                    <p className="text-xs text-muted-foreground mb-3">{indicator.label}</p>
+                    <p className="text-2xl font-bold text-foreground">{displayVal}</p>
+                  </div>
+                </div>
+              );
+            })()}
+          </SheetContent>
+        </Sheet>
+      ) : (
+        selectedFeature && (() => {
+          const val = selectedFeature[indicator.field as keyof typeof selectedFeature] as number | null | undefined;
+          const displayVal = typeof val === 'number'
+            ? indicator.unit === 'percentage' ? `${val.toFixed(1)}%` : val.toLocaleString()
+            : 'No data';
+          const wardColor = getColor(typeof val === 'number' ? val : undefined, breaks, palette);
+          return (
+            <div className="absolute bottom-6 left-5 z-[1000] bg-card/90 backdrop-blur-xl rounded-3xl shadow-float p-4 w-64">
+              <div className="flex gap-3 items-start">
+                {selectedGeometry && (
+                  <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-muted">
+                    <WardShapeSVG geometry={selectedGeometry} fillColor={wardColor} />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-start">
+                    <p className="text-xs text-muted-foreground leading-snug">{indicator.label}</p>
+                    <Button variant="ghost" size="sm" className="rounded-full h-6 w-6 p-0 -mt-0.5 -mr-1 text-muted-foreground hover:bg-muted" onClick={() => { setSelectedFeature(null); setSelectedGeometry(null); }}>
+                      ×
+                    </Button>
+                  </div>
+                  <p className="font-semibold text-sm text-foreground mt-0.5 truncate">{selectedFeature.ward_name || selectedFeature.ward_code}</p>
+                  <p className="text-xl font-bold text-foreground mt-1">{displayVal}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })()
       )}
     </div>
   );

@@ -201,10 +201,23 @@ All colors MUST be HSL.
   z-index: 400;
 }
 
-.custom-tooltip {
+/* Restore default Leaflet tooltip/popup pane stacking above the overlay */
+.leaflet-shadow-pane   { z-index: 500; }
+.leaflet-marker-pane   { z-index: 600; }
+.leaflet-tooltip-pane  { z-index: 650; }
+.leaflet-popup-pane    { z-index: 700; }
+
+/* Custom tooltip - override Leaflet defaults cleanly */
+.leaflet-tooltip.custom-tooltip {
   background: white;
-  border-radius: 1rem;
-  box-shadow: 0 8px 30px -4px rgba(0,0,0,0.08), 0 4px 10px -4px rgba(0,0,0,0.04);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px -2px rgba(0,0,0,0.12), 0 2px 8px -2px rgba(0,0,0,0.06);
   border: 1px solid #e8eaed;
   font-family: 'Inter', sans-serif;
+  padding: 0;
+}
+
+/* Hide Leaflet's default arrow tip */
+.leaflet-tooltip.custom-tooltip::before {
+  display: none;
 }
