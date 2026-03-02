@@ -1,16 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { ORDERED_ROUTES } from '@/data/routes';
 
 export const Navigation = () => {
   const location = useLocation();
   
-  const links = [
-    { path: '/', label: 'Interactive Map' },
-    { path: '/census-explorer', label: 'Census Explorer' },
-    { path: '/about', label: 'About' },
-    { path: '/methodology', label: 'Methodology' },
-    { path: '/findings', label: 'Findings' },
-  ];
+  const links = ORDERED_ROUTES;
   
   return (
     <nav className="border-b bg-card shadow-sm sticky top-0 z-50">

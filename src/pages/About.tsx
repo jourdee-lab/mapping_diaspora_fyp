@@ -6,7 +6,7 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container mx-auto px-8 py-12 max-w-5xl">
+      <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
         <h1 className="text-4xl font-bold text-foreground mb-8">About the Project</h1>
         
         <Card className="p-8 mb-8">

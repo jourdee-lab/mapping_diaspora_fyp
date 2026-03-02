@@ -39,49 +39,49 @@ export default function CensusExplorer() {
 
       {/* Floating Left Panel – desktop only */}
       <div className="hidden md:block absolute top-24 left-5 z-20 w-80">
-        <div className="bg-white rounded-3xl shadow-float overflow-hidden">
+        <div className="bg-card rounded-3xl shadow-float overflow-hidden">
           {/* Panel Header */}
           <div className="px-5 pt-5 pb-3">
-            <p className="text-xs font-medium text-[#5f6368] uppercase tracking-wider mb-1">Indicator</p>
-            <h2 className="text-lg font-semibold text-[#202124] leading-snug">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Indicator</p>
+            <h2 className="text-lg font-semibold text-foreground leading-snug">
               {currentIndicator.label}
             </h2>
-            <p className="text-sm text-[#5f6368] mt-1.5 leading-relaxed">
+            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
               {currentIndicator.description}
             </p>
           </div>
 
           {/* Divider */}
-          <div className="mx-5 border-t border-[#e8eaed]" />
+          <div className="mx-5 border-t border-border" />
 
           {/* Stats Row */}
           <div className="px-5 py-4 flex items-center gap-6">
             <div>
-              <p className="text-xs text-[#5f6368]">Years</p>
-              <p className="text-base font-semibold text-[#202124]">3</p>
+              <p className="text-xs text-muted-foreground">Years</p>
+              <p className="text-base font-semibold text-foreground">3</p>
             </div>
             <div>
-              <p className="text-xs text-[#5f6368]">Indicators</p>
-              <p className="text-base font-semibold text-[#202124]">{availableIndicators.length}</p>
+              <p className="text-xs text-muted-foreground">Indicators</p>
+              <p className="text-base font-semibold text-foreground">{availableIndicators.length}</p>
             </div>
             <div>
-              <p className="text-xs text-[#5f6368]">Level</p>
-              <p className="text-base font-semibold text-[#202124]">{selectedYear === 2001 ? 'OAs' : 'EDs'}</p>
+              <p className="text-xs text-muted-foreground">Level</p>
+              <p className="text-base font-semibold text-foreground">{selectedYear === 2001 ? 'OAs' : 'EDs'}</p>
             </div>
           </div>
 
           {/* Divider */}
-          <div className="mx-5 border-t border-[#e8eaed]" />
+          <div className="mx-5 border-t border-border" />
 
           {/* Chips */}
           <div className="px-5 py-4 flex flex-wrap gap-2">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-[#e8f0fe] text-[#1a73e8]">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
               {currentIndicator.category}
             </span>
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-[#f1f3f4] text-[#5f6368]">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
               {currentIndicator.unit}
             </span>
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-[#f1f3f4] text-[#5f6368]">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
               Manchester
             </span>
           </div>
@@ -90,7 +90,7 @@ export default function CensusExplorer() {
 
       {/* Floating Year Toggle – left on mobile, top-centre on desktop */}
       <div className="absolute top-24 left-2 md:left-1/2 md:-translate-x-1/2 z-20">
-        <div className="relative inline-flex items-center bg-white rounded-full p-1 shadow-float overflow-hidden">
+        <div className="relative inline-flex items-center bg-card rounded-full p-1 shadow-float overflow-hidden">
           <div
             className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
             style={{
@@ -104,30 +104,30 @@ export default function CensusExplorer() {
           />
           <button
             onClick={() => handleYearChange(1981)}
-            className={`relative z-10 px-5 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-4 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
               selectedYear === 1981
                 ? 'text-white'
-                : 'text-[#5f6368] hover:text-[#202124]'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             1981
           </button>
           <button
             onClick={() => handleYearChange(1991)}
-            className={`relative z-10 px-5 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-4 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
               selectedYear === 1991
                 ? 'text-white'
-                : 'text-[#5f6368] hover:text-[#202124]'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             1991
           </button>
           <button
             onClick={() => handleYearChange(2001)}
-            className={`relative z-10 px-5 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-4 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
               selectedYear === 2001
                 ? 'text-white'
-                : 'text-[#5f6368] hover:text-[#202124]'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             2001
