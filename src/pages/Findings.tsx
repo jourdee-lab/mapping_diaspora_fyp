@@ -7,45 +7,35 @@ const Findings = () => {
       <Header />
 
       <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
-        <h1 className="text-2xl sm:text-4xl font-bold text-foreground mb-4">Findings and Analysis</h1>
-        <p className="text-foreground/70 text-base sm:text-lg mb-8 text-justify">
-          Spatial analysis of Chinese immigrant integration in Manchester across three census years (1981, 1991, 2001),
-          based on 33 harmonised ward geographies and Small Area Statistics data.
-        </p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Findings and Analysis</h1>
 
-        {/* Summary card */}
-        <Card className="p-4 sm:p-8 mb-8 bg-primary/5 border-primary/20">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Overview</h2>
-          <p className="text-foreground/90 leading-relaxed text-lg mb-4 text-justify">
-            Manchester's Chinese community grew from approximately 2,400 Far East-born residents (0.55% of the city's population)
-            in 1981 to over 5,100 self-identified Chinese in 2001 (1.31%), a more than twofold increase
-            amid steady citywide depopulation from 433,000 to 393,000. The evidence points to a pattern of asymmetric convergence:
-            the settled, family-based segment of the community moved measurably closer to local socioeconomic norms over the
-            period, while a growing student and transient population continued to depress aggregate indicators.
+        {/* Introductory context */}
+        <div className="mb-10 space-y-4 text-foreground/85 leading-relaxed text-justify border-l-2 border-border pl-5">
+          <p className="text-base sm:text-lg">
+            Manchester's Chinese community grew from approximately 2,400 Far East-born residents
+            (0.55% of the city's population) in 1981 to over 5,100 self-identified Chinese in 2001
+            (1.31%) — a more than twofold increase over a period in which the city as a whole lost
+            around 40,000 residents, declining from 433,000 to 393,000.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6">
-            <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-primary">0.43 → 0.32</div>
-              <div className="text-sm text-foreground/60 mt-1">Index of Dissimilarity 1981 to 2001</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-primary">+7.3pp</div>
-              <div className="text-sm text-foreground/60 mt-1">Mean ward owner-occupation rise</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-primary">-0.36pp</div>
-              <div className="text-sm text-foreground/60 mt-1">Mean ward severe overcrowding fall</div>
-            </div>
-          </div>
-        </Card>
+          <p className="text-base sm:text-lg">
+            The evidence points to a pattern of <em>asymmetric convergence</em>. The settled,
+            family-based segment of the community moved measurably closer to local socioeconomic
+            norms across the twenty-year period: residential segregation (Index of Dissimilarity)
+            fell from 0.43 in 1981 to 0.32 by 2001, mean ward owner-occupation rose by 7.3
+            percentage points, and severe overcrowding declined by 0.36 percentage points city-wide.
+            At the same time, a growing student and transient catering-worker population
+            concentrated in inner-city wards continued to depress the aggregate indicators, masking
+            the extent of that underlying convergence.
+          </p>
+        </div>
 
         {/* RQ1 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Spatial Distribution and Concentration (1981 to 2001)</h2>
-          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
+          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Spatial Distribution and Concentration (1981 to 2001)</h2>
+          <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Peak Concentration Wards</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Peak Concentration Wards</h3>
               <p className="mb-4">
                 The centre of gravity of Chinese settlement shifted substantially across the twenty-year period.
                 Hulme dominated in 1981 (6.97% Far East-born), reflecting its proximity to the historical Chinatown
@@ -84,7 +74,7 @@ const Findings = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Index of Dissimilarity</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Index of Dissimilarity</h3>
               <p className="mb-3">
                 Residential segregation, measured by the Index of Dissimilarity (D), fell from 0.43 in 1981 to 0.28
                 in 1991 before a partial rebound to 0.32 by 2001. The 1981 figure is elevated by the extreme
@@ -95,38 +85,30 @@ const Findings = () => {
                 (approximately 0.70) or Black Caribbean (approximately 0.55) communities in comparable
                 UK cities at the same period.
               </p>
-              <div className="bg-muted/30 p-4 rounded-lg grid grid-cols-3 gap-4">
-                {[['1981', '0.43'], ['1991', '0.28'], ['2001', '0.32']].map(([yr, val]) => (
-                  <div key={yr} className="text-center">
-                    <div className="text-xl font-bold text-primary">{val}</div>
-                    <div className="text-xs text-foreground/60">{yr}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Settlement Node Classification</h3>
-              <div className="space-y-3">
-                <div className="border-l-4 border-primary pl-4">
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Settlement Node Classification</h3>
+              <div className="space-y-4">
+                <div className="border-l-2 border-border pl-4">
                   <h4 className="font-medium text-foreground mb-1">Sustained high concentration (top 10 in all three years)</h4>
-                  <p className="text-sm">
+                  <p className="text-sm text-foreground/80">
                     Ardwick, Cheetham, Hulme, and Longsight maintained Chinese presence across all three census
                     periods, providing continuity of ethnic infrastructure, community institutions, and catering
                     businesses throughout the study period.
                   </p>
                 </div>
-                <div className="border-l-4 border-blue-400 pl-4">
+                <div className="border-l-2 border-border pl-4">
                   <h4 className="font-medium text-foreground mb-1">Ascending wards (entering top 10 by 2001)</h4>
-                  <p className="text-sm">
+                  <p className="text-sm text-foreground/80">
                     Central ward rose from 0.16% in 1981 to 6.06% in 2001, a 38-fold increase driven by Chinatown
                     formalisation and student accommodation development near Manchester Metropolitan University and UMIST.
                     Rusholme (+2.37 percentage points), Moss Side, and Beswick and Clayton also grew substantially.
                   </p>
                 </div>
-                <div className="border-l-4 border-muted-foreground pl-4">
+                <div className="border-l-2 border-border pl-4">
                   <h4 className="font-medium text-foreground mb-1">Declining wards (leaving top 10 by 2001)</h4>
-                  <p className="text-sm">
+                  <p className="text-sm text-foreground/80">
                     Barlow Moor, Fallowfield, Old Moat, and Whalley Range saw relative declines, consistent with
                     residential assimilation of settled Chinese families whose concentration fell below citywide
                     thresholds as they dispersed into the wider housing market.
@@ -139,11 +121,11 @@ const Findings = () => {
 
         {/* RQ2 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Housing Tenure and Quality</h2>
-          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
+          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Housing Tenure and Quality</h2>
+          <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Owner-Occupation</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Owner-Occupation</h3>
               <p>
                 Chinese households achieved an aggregated owner-occupation rate of 38.4% in 1991, marginally above the
                 Manchester ward mean of approximately 35.5% in 1981 and broadly in line with citywide norms. However,
@@ -159,7 +141,7 @@ const Findings = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Overcrowding</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Overcrowding</h3>
               <p className="mb-3">
                 Wards with above-median Chinese concentration consistently showed higher severe overcrowding
                 (more than 1.5 persons per room) than the rest of the city across all three periods, though
@@ -174,7 +156,7 @@ const Findings = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Basic Amenities</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Basic Amenities</h3>
               <p>
                 In 1981, the top-five Chinese wards recorded amenity-lack rates substantially below the
                 Manchester mean. Hulme, for example, had only 0.41% of households lacking a bath or WC,
@@ -192,11 +174,11 @@ const Findings = () => {
 
         {/* RQ3 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Employment and Economic Position</h2>
-          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
+          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Employment and Economic Position</h2>
+          <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Chinese Employment Rates (1991)</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Chinese Employment Rates (1991)</h3>
               <p className="mb-4">
                 Manchester-wide, Chinese residents aged 16 and over recorded an economic activity rate of
                 52.8% and an ILO unemployment rate of 23.9% in 1991. These aggregate figures are heavily
@@ -207,24 +189,10 @@ const Findings = () => {
                 between student-dominated inner wards and family-settled suburban areas points to two distinct
                 Chinese sub-populations whose economic profiles diverged sharply.
               </p>
-              <div className="bg-muted/30 p-4 rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-center text-sm">
-                <div>
-                  <div className="text-lg font-bold text-primary">52.8%</div>
-                  <div className="text-foreground/60">Economic activity rate</div>
-                </div>
-                <div>
-                  <div className="text-lg font-bold text-primary">40.2%</div>
-                  <div className="text-foreground/60">Employment rate (16+)</div>
-                </div>
-                <div>
-                  <div className="text-lg font-bold text-primary">23.9%</div>
-                  <div className="text-foreground/60">ILO unemployment rate</div>
-                </div>
-              </div>
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Self-Employment and the Enclave Economy (2001)</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Self-Employment and the Enclave Economy (2001)</h3>
               <p>
                 The Manchester mean self-employment rate in 2001 was 4.6%. Counter to the enclave economy
                 hypothesis, the top-ten Chinese-concentration wards all recorded self-employment rates
@@ -240,7 +208,7 @@ const Findings = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Employment and Chinese Presence (1981)</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Employment and Chinese Presence (1981)</h3>
               <p>
                 A negative correlation (r = -0.50) existed in 1981 between ward-level Chinese concentration
                 and ward-level employment rates. Wards in the highest Chinese-presence quintile had a mean
@@ -255,11 +223,11 @@ const Findings = () => {
 
         {/* RQ4 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Age Structure and Settlement Depth (1991)</h2>
-          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
+          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Age Structure and Settlement Depth (1991)</h2>
+          <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Age Profile</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Age Profile</h3>
               <p className="mb-4">
                 The Manchester-wide Chinese age structure in 1991 (n = 3,103) was dominated by the 16 to 29 cohort
                 (37.5%) and the 30 to pensionable-age group (36.4%), reflecting a large working-age and student
@@ -295,7 +263,7 @@ const Findings = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Two Settlement Geographies</h3>
+              <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Two Settlement Geographies</h3>
               <p>
                 The age distribution points to a clear spatial bifurcation. Inner-city wards near university campuses
                 (Rusholme: 64.4% aged 16 to 29, Barlow Moor: 62.5%, Hulme: 56.2%) had profiles dominated by
@@ -314,8 +282,8 @@ const Findings = () => {
 
         {/* RQ5 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Temporal Change and Integration Trajectory</h2>
-          <div className="space-y-6 text-foreground/90 leading-relaxed text-justify">
+          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Temporal Change and Integration Trajectory</h2>
+          <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <p>
               Across all 33 wards, Chinese concentration rose in 32 cases between 1981 and 2001 (mean increase:
@@ -362,7 +330,7 @@ const Findings = () => {
 
         {/* Synthesis */}
         <Card className="p-4 sm:p-8">
-          <h2 className="text-lg sm:text-2xl font-semibold text-foreground mb-6">Synthesis: Integration in Context</h2>
+          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Synthesis: Integration in Context</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
               The overall integration trajectory of Manchester's Chinese community between 1981 and 2001

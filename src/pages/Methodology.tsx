@@ -20,20 +20,12 @@ const Methodology = () => {
               historical Small Area Statistics (SAS) with digitised boundary data, the project maps how patterns of
               settlement, housing tenure, employment, and economic position shifted over two decades.
             </p>
-            <div className="grid md:grid-cols-3 gap-4 pt-2">
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <p className="font-semibold text-primary mb-1">Geographic Units</p>
-                <p className="text-sm">Enumeration Districts (1981, 1991), Output Areas (2001), and harmonised Ward boundaries across all three years</p>
-              </div>
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <p className="font-semibold text-primary mb-1">Indicators</p>
-                <p className="text-sm">29 socioeconomic indicators derived per census year, covering country of birth, housing quality, tenure, employment, and economic position</p>
-              </div>
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <p className="font-semibold text-primary mb-1">Source Data</p>
-                <p className="text-sm">UK Census Small Area Statistics: 4 tables for 1981, 6 tables for 1991, and 8 ONS Census Area Statistics tables for 2001, all sourced via the UK Data Service</p>
-              </div>
-            </div>
+            <p>
+              Geographic units are Enumeration Districts for 1981 and 1991 and Output Areas for 2001, with all years
+              harmonised to a common ward geography of 33 units for cross-period comparison. 29 socioeconomic
+              indicators are derived per census year from UK Census Small Area Statistics (4 tables for 1981, 6 for
+              1991, 8 ONS Census Area Statistics for 2001), all sourced via the UK Data Service.
+            </p>
           </div>
         </Card>
 
@@ -89,38 +81,38 @@ const Methodology = () => {
         {/* Technology Stack */}
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Technology Stack</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-muted/30 p-6 rounded-lg space-y-4">
-              <h3 className="font-semibold text-foreground text-base border-b border-border pb-2">Frontend & Visualisation</h3>
-              <ul className="space-y-3 text-foreground/90">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/40 mb-3">Frontend & Visualisation</h3>
+              <dl className="divide-y divide-border/50">
                 {[
-                  { name: 'React + TypeScript', desc: 'Type-safe UI framework' },
-                  { name: 'Leaflet.js / React-Leaflet', desc: 'Interactive choropleth mapping' },
-                  { name: 'Tailwind CSS + shadcn/ui', desc: 'Responsive, accessible styling' },
-                  { name: 'Vercel', desc: 'Continuous deployment platform' },
-                ].map(({ name, desc }) => (
-                  <li key={name} className="flex items-start gap-3">
-                    <span className="mt-1.5 w-1.5 h-1.5 shrink-0 bg-primary rounded-full"></span>
-                    <span className="text-sm leading-snug"><strong>{name}:</strong> {desc}</span>
-                  </li>
+                  ['React + TypeScript', 'Type-safe UI framework'],
+                  ['Leaflet.js / React-Leaflet', 'Interactive choropleth mapping'],
+                  ['Tailwind CSS + shadcn/ui', 'Responsive, accessible styling'],
+                  ['Vercel', 'Continuous deployment'],
+                ].map(([name, desc]) => (
+                  <div key={name} className="py-2.5">
+                    <dt className="text-sm font-medium text-foreground">{name}</dt>
+                    <dd className="text-xs text-foreground/50 mt-0.5">{desc}</dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </div>
-            <div className="bg-muted/30 p-6 rounded-lg space-y-4">
-              <h3 className="font-semibold text-foreground text-base border-b border-border pb-2">Geospatial & Data Processing</h3>
-              <ul className="space-y-3 text-foreground/90">
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/40 mb-3">Geospatial & Data Processing</h3>
+              <dl className="divide-y divide-border/50">
                 {[
-                  { name: 'Python / Pandas', desc: 'Data ingestion and indicator computation' },
-                  { name: 'GeoPandas / Shapely', desc: 'Spatial joins and boundary handling' },
-                  { name: 'QGIS', desc: 'Boundary digitisation, join validation, and cartographic output' },
-                  { name: 'GeoJSON / GeoPackage', desc: 'Spatial data formats for web and archival use' },
-                ].map(({ name, desc }) => (
-                  <li key={name} className="flex items-start gap-3">
-                    <span className="mt-1.5 w-1.5 h-1.5 shrink-0 bg-primary rounded-full"></span>
-                    <span className="text-sm leading-snug"><strong>{name}:</strong> {desc}</span>
-                  </li>
+                  ['Python / Pandas', 'Data ingestion and indicator computation'],
+                  ['GeoPandas / Shapely', 'Spatial joins and boundary handling'],
+                  ['QGIS', 'Boundary digitisation, join validation, cartographic output'],
+                  ['GeoJSON / GeoPackage', 'Web and archival spatial formats'],
+                ].map(([name, desc]) => (
+                  <div key={name} className="py-2.5">
+                    <dt className="text-sm font-medium text-foreground">{name}</dt>
+                    <dd className="text-xs text-foreground/50 mt-0.5">{desc}</dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </div>
           </div>
         </Card>
