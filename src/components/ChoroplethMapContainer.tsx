@@ -5,7 +5,7 @@ import type { Feature, FeatureCollection, Geometry } from 'geojson';
 import { WardGeoJSON, WardFeatureProperties, IndicatorMetadata } from '@/types/data';
 import { ChoroplethLegend } from '@/components/ChoroplethLegend';
 import { Button } from './ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
 import { Sheet, SheetContent } from './ui/sheet';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -539,7 +539,7 @@ export function ChoroplethMapContainer({
       {/* Indicator Selector - Floating pill top right */}
       {availableIndicators.length > 0 && onIndicatorChange && (
         <div className="absolute top-24 right-2 md:right-4 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
-          <div className="bg-card/90 backdrop-blur-xl rounded-full shadow-float">
+          <div className="bg-card rounded-full p-1 shadow-float overflow-hidden">
             <Select
               value={indicator.id}
               onValueChange={(id) => {
@@ -547,19 +547,38 @@ export function ChoroplethMapContainer({
                 if (selected) onIndicatorChange(selected);
               }}
             >
-              <SelectTrigger className="w-32 md:w-44 h-auto px-3 md:px-4 py-1.5 md:py-2 border-0 bg-transparent shadow-none rounded-full text-xs md:text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors">
+              <SelectTrigger className="h-auto px-4 md:px-5 py-2 md:py-2.5 border-0 bg-transparent shadow-none rounded-full text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors w-auto max-w-[10rem] md:max-w-[14rem]">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent align="end" className="rounded-2xl shadow-float border-border w-44">
-                {availableIndicators.map((ind) => (
-                  <SelectItem 
-                    key={ind.id} 
-                    value={ind.id}
-                    className="rounded-xl text-sm cursor-pointer"
-                  >
-                    {ind.label}
-                  </SelectItem>
-                ))}
+              <SelectContent align="end" className="rounded-2xl shadow-float border-border/50 w-56 md:w-64 backdrop-blur-xl bg-popover/95">
+                {(() => {
+                  const grouped = availableIndicators.reduce<Record<string, typeof availableIndicators>>((acc, ind) => {
+                    (acc[ind.category] ??= []).push(ind);
+                    return acc;
+                  }, {});
+                  const categoryLabels: Record<string, string> = {
+                    demographic: 'Population',
+                    ethnicity: 'Ethnicity & Origin',
+                    housing: 'Housing & Tenure',
+                    employment: 'Employment',
+                  };
+                  return Object.entries(grouped).map(([cat, items]) => (
+                    <SelectGroup key={cat}>
+                      <SelectLabel className="text-[11px] uppercase tracking-wider text-muted-foreground/70 font-semibold px-3 pt-2.5 pb-1">
+                        {categoryLabels[cat] ?? cat}
+                      </SelectLabel>
+                      {items.map((ind) => (
+                        <SelectItem
+                          key={ind.id}
+                          value={ind.id}
+                          className="rounded-lg text-sm cursor-pointer py-2"
+                        >
+                          {ind.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  ));
+                })()}
               </SelectContent>
             </Select>
           </div>

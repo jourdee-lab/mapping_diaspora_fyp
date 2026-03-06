@@ -19,7 +19,7 @@ const Methodology = () => {
       
       <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
         <InView {...inViewProps}>
-          <h1 className="text-4xl font-bold text-foreground mb-8">Methodology & Data</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-8">Methodology & Data</h1>
         </InView>
 
         {/* Data Pipeline */}

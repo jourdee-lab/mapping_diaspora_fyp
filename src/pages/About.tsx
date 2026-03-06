@@ -18,11 +18,11 @@ const About = () => {
       
       <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
         <InView {...inViewProps}>
-          <h1 className="text-4xl font-bold text-foreground mb-8">About the Project</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-8">About the Project</h1>
         </InView>
 
         <InView {...inViewProps}>
-        <Card className="p-8 mb-8">
+        <Card className="p-4 sm:p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Research Context</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
@@ -36,7 +36,7 @@ const About = () => {
         </InView>
 
         <InView {...inViewProps}>
-        <Card className="p-8">
+        <Card className="p-4 sm:p-6 md:p-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Digital Humanities Approach</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
