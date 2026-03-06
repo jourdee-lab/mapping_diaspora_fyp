@@ -155,7 +155,7 @@ const Methodology = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">Boundary: <code className="bg-muted px-1 rounded">gis_boundaries/1981/ED_1981_EW.shp</code></p>
+              <p className="text-xs text-muted-foreground mt-2 break-words">Boundary: <code className="bg-muted px-1 rounded break-all">gis_boundaries/1981/ED_1981_EW.shp</code></p>
             </div>
 
             {/* 1991 */}
@@ -189,7 +189,7 @@ const Methodology = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">Boundary: <code className="bg-muted px-1 rounded">gis_boundaries/1991/england_wa_1991.shp</code></p>
+              <p className="text-xs text-muted-foreground mt-2 break-words">Boundary: <code className="bg-muted px-1 rounded break-all">gis_boundaries/1991/england_wa_1991.shp</code></p>
             </div>
 
             {/* 2001 */}
@@ -225,10 +225,10 @@ const Methodology = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Boundaries: <code className="bg-muted px-1 rounded">gis_boundaries/2001/OA/england_oa_2001.shp</code>
+              <p className="text-xs text-muted-foreground mt-2 break-words">
+                Boundaries: <code className="bg-muted px-1 rounded break-all">gis_boundaries/2001/OA/england_oa_2001.shp</code>
                 {' '}·{' '}
-                <code className="bg-muted px-1 rounded">gis_boundaries/2001/wards/england_caswa_2001_clipped.shp</code>
+                <code className="bg-muted px-1 rounded break-all">gis_boundaries/2001/wards/england_caswa_2001_clipped.shp</code>
               </p>
             </div>
           </div>
