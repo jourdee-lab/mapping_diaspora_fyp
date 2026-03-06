@@ -521,8 +521,8 @@ export function ChoroplethMapContainer({
         {/* Reset view */}
         <button
           onClick={() => {
-            if (mapRef.current) {
-              mapRef.current.setView([53.4808, -2.2426], 12);
+            if (mapRef.current && geoJsonLayerRef.current) {
+              mapRef.current.fitBounds(geoJsonLayerRef.current.getBounds());
             }
           }}
           title="Reset map view"
