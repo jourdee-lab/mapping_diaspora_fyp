@@ -182,6 +182,9 @@ export function ChoroplethMapContainer({
     if (isDark) document.documentElement.classList.add('dark');
     return isDark;
   });
+  // Ref mirror so event handlers always read the current theme without stale closures
+  const darkRef = useRef(dark);
+  useEffect(() => { darkRef.current = dark; }, [dark]);
 
   const [currentTileLayer, setCurrentTileLayer] = useState<TileLayer>(() =>
     typeof window !== 'undefined' && localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'
@@ -282,6 +285,7 @@ export function ChoroplethMapContainer({
         center: [53.4808, -2.2426], // Manchester city center
         zoom: 12,
         zoomControl: false,
+        preferCanvas: true,  // Canvas renderer eliminates anti-aliasing seam gaps between adjacent polygons
       });
 
       const tileLayer = L.tileLayer(tileLayers[currentTileLayer].url, {
@@ -381,15 +385,17 @@ export function ChoroplethMapContainer({
     }
 
     try {
-      // Style function with improved boundary visualization
+      // Style function — in dark mode, border matches fill to hide anti-aliasing seams
+      const isDark = darkRef.current;
       const style = (feature?: Feature) => {
         const value = feature.properties[indicator.field];
+        const fill = getColor(value, breaks, palette);
         return {
-          fillColor: getColor(value, breaks, palette),
-          weight: 0.5,           // Thin boundaries
-          opacity: 0.22,         // subtle boundaries
-          color: '#ffffff',      // White separator lines
-          fillOpacity: 0.65,     // Middleground: choropleth visible, base map partially showing
+          fillColor: fill,
+          weight: isDark ? 1 : 0.5,
+          opacity: isDark ? 1 : 0.22,
+          color: isDark ? fill : '#ffffff',  // Match fill in dark mode to hide seams
+          fillOpacity: 0.65,
         };
       };
 
@@ -427,7 +433,7 @@ export function ChoroplethMapContainer({
           const target = e.target;
           target.setStyle({
             weight: 2,
-            color: '#000000',
+            color: darkRef.current ? '#ffffff' : '#000000',
             opacity: 0.8,
             fillOpacity: 0.80,
           });
@@ -456,6 +462,23 @@ export function ChoroplethMapContainer({
       console.error('[Choropleth] ✗ Error rendering:', err);
     }
   }, [geojsonData, indicator.field, indicator.label, indicator.unit, breaks, palette]);
+
+  // Lightweight effect: restyle borders on theme toggle (no rebuild, no fitBounds reset)
+  useEffect(() => {
+    if (!geoJsonLayerRef.current) return;
+    geoJsonLayerRef.current.eachLayer((layer: L.Layer) => {
+      const pathLayer = layer as L.Path & { feature?: Feature };
+      if (pathLayer.feature && pathLayer.setStyle) {
+        const value = pathLayer.feature.properties?.[indicator.field];
+        const fill = getColor(value, breaks, palette);
+        pathLayer.setStyle({
+          color: dark ? fill : '#ffffff',
+          opacity: dark ? 1 : 0.22,
+          weight: dark ? 1 : 0.5,
+        });
+      }
+    });
+  }, [dark, indicator.field, breaks, palette]);
 
   return (
     <div className="relative w-full h-full bg-[#e8eaed]">

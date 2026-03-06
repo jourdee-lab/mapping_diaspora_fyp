@@ -12,20 +12,20 @@ const Findings = () => {
         {/* Introductory context */}
         <div className="mb-10 space-y-4 text-foreground/85 leading-relaxed text-justify border-l-2 border-border pl-5">
           <p className="text-base sm:text-lg">
-            Manchester's Chinese community grew from approximately 2,400 Far East-born residents
-            (0.55% of the city's population) in 1981 to over 5,100 self-identified Chinese in 2001
-            (1.31%) which is more than a twofold increase over a period in which the city as a whole lost
-            around 40,000 residents, declining from 433,000 to 393,000.
+            Between 1981 and 2001, Manchester's Chinese population increased from roughly 2,400
+            Far East-born residents (0.55% of the city) to more than 5,100 people who self-identified
+            as Chinese (1.31%). This growth occurred against a backdrop of overall urban decline, as the
+            city's population fell from about 433,000 to 393,000, a loss of approximately 40,000 residents.
           </p>
           <p className="text-base sm:text-lg">
-            The evidence points to a pattern of <em>asymmetric convergence</em>. The settled,
-            family-based segment of the community moved measurably closer to local socioeconomic
-            norms across the twenty-year period: residential segregation (Index of Dissimilarity)
-            fell from 0.43 in 1981 to 0.32 by 2001, mean ward owner-occupation rose by 7.3
-            percentage points, and severe overcrowding declined by 0.36 percentage points city-wide.
-            At the same time, a growing student and transient catering-worker population
-            concentrated in inner-city wards continued to depress the aggregate indicators, masking
-            the extent of that underlying convergence.
+            The quantitative evidence points to a pattern of <em>asymmetric convergence</em> rather than
+            straightforward linear assimilation. A settled, family-based segment of the community moved
+            closer to local socio-economic norms over the twenty-year period: the Index of Dissimilarity
+            declined from 0.43 in 1981 to 0.32 in 2001, average ward-level owner-occupation rose by
+            7.3 percentage points, and severe overcrowding fell by 0.36 percentage points across the
+            city. At the same time, the growing presence of students and transient catering workers in
+            inner-city wards continued to weigh down aggregated indicators, so that the convergence of
+            long-settled households with city averages is largely hidden at the level of city-wide metrics.
           </p>
         </div>
 
@@ -37,11 +37,12 @@ const Findings = () => {
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Peak Concentration Wards</h3>
               <p className="mb-4">
-                The centre of gravity of Chinese settlement shifted substantially across the twenty-year period.
-                Hulme dominated in 1981 (6.97% Far East-born), reflecting its proximity to the historical Chinatown
-                district, though this figure is partly inflated by Hulme's severe population loss through comprehensive
-                redevelopment. By 2001, Central ward had become the primary concentration node at 6.06%, with adjacent
-                Ardwick at 5.84%, corresponding to the formalised Chinatown precinct and nearby student accommodation.
+                In 1981, Hulme contained 6.97% Far East-born residents, the highest recorded ward-level
+                concentration, a figure partly magnified by extensive redevelopment and associated population
+                loss in the area. By 2001, Central ward had overtaken Hulme as the primary concentration node,
+                with 6.06% Chinese residents, followed closely by Ardwick at 5.84%, reflecting the consolidation
+                of Chinatown as a formalised commercial and institutional district alongside dense student
+                accommodation.
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
@@ -76,14 +77,15 @@ const Findings = () => {
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Index of Dissimilarity</h3>
               <p className="mb-3">
-                Residential segregation, measured by the Index of Dissimilarity (D), fell from 0.43 in 1981 to 0.28
-                in 1991 before a partial rebound to 0.32 by 2001. The 1981 figure is elevated by the extreme
-                concentration in Hulme and by the birthplace proxy, which excludes UK-born Chinese residents.
-                The partial rebound between 1991 and 2001 plausibly reflects re-concentration around the
-                redeveloped Chinatown in Central ward rather than a reversal of the broader dispersal trend.
-                A D of 0.32 indicates moderate segregation, well below levels recorded for Bangladeshi
-                (approximately 0.70) or Black Caribbean (approximately 0.55) communities in comparable
-                UK cities at the same period.
+                The changing degree of residential concentration is captured by the Index of Dissimilarity (D),
+                which fell from 0.43 in 1981 to 0.28 in 1991, before rising slightly to 0.32 in 2001. The 1981
+                value is elevated by Hulme's unusually high share of Far East-born residents and by the reliance
+                on birthplace as a proxy for ethnicity, which excludes UK-born Chinese and therefore exaggerates
+                spatial unevenness. The partial rebound between 1991 and 2001 is more plausibly read as the
+                effect of renewed clustering around the redeveloped Chinatown and nearby campuses than as
+                evidence of a general return to segregation. A D value of 0.32 still indicates only moderate
+                segregation and is substantially lower than contemporary values for Bangladeshi or Black
+                Caribbean populations in comparable British cities.
               </p>
             </div>
 
@@ -93,25 +95,27 @@ const Findings = () => {
                 <div className="border-l-2 border-border pl-4">
                   <h4 className="font-medium text-foreground mb-1">Sustained high concentration (top 10 in all three years)</h4>
                   <p className="text-sm text-foreground/80">
-                    Ardwick, Cheetham, Hulme, and Longsight maintained Chinese presence across all three census
-                    periods, providing continuity of ethnic infrastructure, community institutions, and catering
-                    businesses throughout the study period.
+                    Ardwick, Cheetham, Hulme, and Longsight remain within the top ten Chinese-concentration
+                    wards across all three census years, acting as enduring settlement nodes that sustain
+                    institutions, catering businesses, and social networks over time.
                   </p>
                 </div>
                 <div className="border-l-2 border-border pl-4">
                   <h4 className="font-medium text-foreground mb-1">Ascending wards (entering top 10 by 2001)</h4>
                   <p className="text-sm text-foreground/80">
-                    Central ward rose from 0.16% in 1981 to 6.06% in 2001, a 38-fold increase driven by Chinatown
-                    formalisation and student accommodation development near Manchester Metropolitan University and UMIST.
-                    Rusholme (+2.37 percentage points), Moss Side, and Beswick and Clayton also grew substantially.
+                    Central, Rusholme, Moss Side, and Beswick and Clayton appear as ascending wards: Central, in
+                    particular, rises from just 0.16% Chinese residents in 1981 to 6.06% in 2001, a thirty-eight-fold
+                    increase that aligns with the formalisation of Chinatown and the expansion of nearby
+                    university-linked housing.
                   </p>
                 </div>
                 <div className="border-l-2 border-border pl-4">
                   <h4 className="font-medium text-foreground mb-1">Declining wards (leaving top 10 by 2001)</h4>
                   <p className="text-sm text-foreground/80">
-                    Barlow Moor, Fallowfield, Old Moat, and Whalley Range saw relative declines, consistent with
-                    residential assimilation of settled Chinese families whose concentration fell below citywide
-                    thresholds as they dispersed into the wider housing market.
+                    Conversely, Barlow Moor, Fallowfield, Old Moat, and Whalley Range move out of the top ten
+                    by 2001, consistent with a pattern in which long-established families leave early concentration
+                    areas and diffuse into the broader housing market, reducing visible clustering without erasing
+                    community presence.
                   </p>
                 </div>
               </div>
@@ -127,46 +131,44 @@ const Findings = () => {
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Owner-Occupation</h3>
               <p>
-                Chinese households achieved an aggregated owner-occupation rate of 38.4% in 1991, marginally above the
-                Manchester ward mean of approximately 35.5% in 1981 and broadly in line with citywide norms. However,
-                by 2001, the top-five Chinese concentration wards recorded markedly lower owner-occupation than the
-                Manchester average (38.0% versus 43.0%), reflecting the inner-city character of those wards rather
-                than a Chinese-specific tenure disadvantage. Central, Ardwick, and Hulme wards, where Chinese
-                concentration was highest, had owner-occupation rates of 20.7%, 11.3%, and 18.0% respectively in
-                2001, consistent with their dense private-rented and social-housing stock. This finding aligns with
-                Parker's (1998) observation that owner-occupation among permanently settled Chinese families is
-                comparable to the host population, while transient student and catering-sector residents inflate
-                the renting statistics in concentration wards.
+                In 1991, Chinese households achieved an aggregated owner-occupation rate of 38.4%, slightly higher
+                than the 1981 Manchester ward mean of roughly 35.5% and broadly consonant with city-wide norms. By
+                2001, however, the five wards with the highest Chinese concentrations registered lower owner-occupation
+                than the Manchester average (38.0% compared with 43.0%), not because Chinese residents were
+                systematically excluded from ownership, but because these wards were dominated by inner-city housing
+                forms, namely private renting and social housing, that depress owner-occupation across all groups.
+                In Central, Ardwick, and Hulme, where Chinese concentrations were greatest in 2001, owner-occupation
+                rates stood at 20.7%, 11.3%, and 18.0% respectively, reflecting the structure of the local housing
+                stock rather than a specific ethnic deficit.
               </p>
             </div>
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Overcrowding</h3>
               <p className="mb-3">
-                Wards with above-median Chinese concentration consistently showed higher severe overcrowding
-                (more than 1.5 persons per room) than the rest of the city across all three periods, though
-                rates fell over time. In 1991, Chinese-headed households in wards where Chinese households
-                exceeded five showed an aggregated severe overcrowding rate of 2.25%, with the highest
-                rates in Old Moat (6.3%), Rusholme (4.3%), and Ardwick (4.3%). By 2001, severe overcrowding
-                in high-Chinese wards stood at 1.22%, compared to 0.46% in low-Chinese wards and a
-                Manchester mean of 0.85%. The declining trajectory is consistent with gradual transition
-                from above-the-shop catering accommodation towards standard residential tenancies as the
-                community matured.
+                Wards with above-median Chinese concentrations consistently show higher rates of severe overcrowding
+                than the city as a whole, yet these rates decline over time. In 1991, Chinese-headed households
+                in wards with more than five Chinese households recorded an aggregated severe overcrowding rate
+                of 2.25%, with Old Moat at 6.3% and Rusholme and Ardwick both at 4.3%. By 2001, severe overcrowding
+                in high-Chinese wards had fallen to 1.22%, compared with 0.46% in low-Chinese wards and a Manchester
+                mean of 0.85%. This downward trend is consistent with a gradual shift away from above-the-shop
+                catering accommodation and towards more standard tenancies as the community's housing pathways
+                diversified.
               </p>
             </div>
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Basic Amenities</h3>
               <p>
-                In 1981, the top-five Chinese wards recorded amenity-lack rates substantially below the
-                Manchester mean. Hulme, for example, had only 0.41% of households lacking a bath or WC,
-                against a city mean of 3.31%. This reflected the relatively modern post-war housing stock
-                in Hulme following clearance. By 2001, the relationship reversed: the top-five Chinese
-                wards showed rates at or above the Manchester mean (Central: 9.82%, Rusholme: 7.85%,
-                Manchester mean: 9.29%). This compositional shift reflects the fact that the wards
-                which became Chinese concentration areas by 2001 contain older housing stock and
-                houses in multiple occupation with deteriorating amenity profiles, rather than a
-                deterioration in the housing conditions occupied by Chinese residents specifically.
+                In 1981, the five wards with the highest Chinese presence had markedly lower rates of households
+                lacking a bath or WC than the Manchester average, with Hulme at just 0.41% compared with a city
+                mean of 3.31%, a result of post-war redevelopment and relatively modern housing stock following
+                clearance. By 2001, however, the top-five Chinese wards showed amenity-lack rates at or above
+                the Manchester mean (Central at 9.82%, Rusholme at 7.85%, compared with 9.29% city-wide). This
+                reversal reflects a compositional shift in which Chinese concentrations by 2001 are located in
+                older inner-city housing and houses in multiple occupation with declining amenity profiles,
+                rather than any absolute deterioration in the quality of accommodation occupied by Chinese
+                residents.
               </p>
             </div>
           </div>
@@ -180,42 +182,45 @@ const Findings = () => {
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Chinese Employment Rates (1991)</h3>
               <p className="mb-4">
-                Manchester-wide, Chinese residents aged 16 and over recorded an economic activity rate of
-                52.8% and an ILO unemployment rate of 23.9% in 1991. These aggregate figures are heavily
-                distorted by the student population in inner-city wards. Hulme, for instance, had a Chinese
-                employment rate of only 26.6%, reflecting its large student cohort. In contrast, suburban
-                family-settlement wards showed Chinese employment rates of 70 to 74% (Baguley: 73.7%,
-                Northenden: 72.9%, Moston: 70.5%), substantially above local ward averages. This bifurcation
-                between student-dominated inner wards and family-settled suburban areas points to two distinct
-                Chinese sub-populations whose economic profiles diverged sharply.
+                In 1991, across Manchester, Chinese residents aged sixteen and over recorded an economic activity
+                rate of 52.8% and an ILO unemployment rate of 23.9%, headline figures heavily skewed by the large
+                student population in inner-city wards. In Hulme, for instance, the Chinese employment rate stood
+                at just 26.6%, reflecting an area profile dominated by students. In contrast, suburban wards
+                associated with family settlement show Chinese employment rates substantially above local ward
+                averages: Baguley at 73.7%, Northenden at 72.9%, and Moston at 70.5%. Taken together, these
+                values reveal a clear divide between student and newcomer-dominated inner wards and the more
+                established suburban household clusters further out.
               </p>
             </div>
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Self-Employment and the Enclave Economy (2001)</h3>
               <p>
-                The Manchester mean self-employment rate in 2001 was 4.6%. Counter to the enclave economy
-                hypothesis, the top-ten Chinese-concentration wards all recorded self-employment rates
-                below or at the Manchester mean (range: 2.2 to 4.5%), with a negative correlation between
-                Chinese concentration and self-employment across all 33 wards (Pearson r = -0.30). This
-                finding supports Benton and Gomez's (2008) observation that the Chinese catering economy
-                deliberately disperses geographically to avoid market saturation, distributing takeaway
-                businesses across suburban wards rather than concentrating them in Chinatown. The absence
-                of spatially concentrated self-employment in high-Chinese wards therefore does not indicate
-                low entrepreneurial activity, but rather a dispersed economic geography invisible at the
-                ward level to area-based measures.
+                Self-employment patterns in 2001 challenge a straightforward reading of Chinatown as a classic
+                ethnic enclave economy. The Manchester mean self-employment rate was 4.6%, yet the ten wards
+                with the highest Chinese concentrations all recorded self-employment rates below or equal to
+                this figure, ranging from 2.2% to 4.5%. Across all thirty-three wards, there was a negative
+                correlation between Chinese concentration and self-employment, with a Pearson correlation
+                coefficient of -0.30. Rather than indicating low entrepreneurial activity, this pattern
+                supports the argument that Chinese catering businesses deliberately spread across suburban
+                space to avoid market saturation. The ward map shows a broadly even distribution of
+                takeaway outlets and restaurants rather than a tight commercial cluster, meaning much
+                Chinese self-employment falls below the resolution of area-based measures.
               </p>
             </div>
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Employment and Chinese Presence (1981)</h3>
               <p>
-                A negative correlation (r = -0.50) existed in 1981 between ward-level Chinese concentration
-                and ward-level employment rates. Wards in the highest Chinese-presence quintile had a mean
-                employment rate of 20.2%, compared to 21.6% in the lowest quintile. This reflects confounding
-                geography: Chinese immigrants in 1981 settled disproportionately in deprived inner-city wards
-                (Hulme, Cheetham, Ardwick) which had structurally low employment rates across all resident
-                groups, not a causal relationship between Chinese presence and labour market outcomes.
+                In 1981, a negative correlation existed between ward-level Chinese concentration and ward-level
+                employment rates. Wards in the highest quintile of Chinese presence had a mean employment rate
+                of 20.2%, compared with 21.6% in the lowest quintile. This association does not imply that
+                Chinese presence depressed employment; instead, it reflects the geography of early settlement,
+                in which Chinese migrants were disproportionately located in already deprived inner-city wards
+                such as Hulme, Cheetham, and Ardwick that were characterised by structurally low employment
+                across all resident groups. When the data are plotted spatially, Chinese presence appears
+                superimposed upon pre-existing landscapes of industrial restructuring and urban disinvestment,
+                rather than generating these patterns.
               </p>
             </div>
           </div>
@@ -229,10 +234,12 @@ const Findings = () => {
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Age Profile</h3>
               <p className="mb-4">
-                The Manchester-wide Chinese age structure in 1991 (n = 3,103) was dominated by the 16 to 29 cohort
-                (37.5%) and the 30 to pensionable-age group (36.4%), reflecting a large working-age and student
-                population. Children under 16 comprised 21.3% of the Chinese population, indicating active family
-                formation particularly in suburban wards.
+                In 1991, the Manchester Chinese population was dominated by those aged sixteen to twenty-nine
+                and those aged thirty to pensionable age, signalling a large working-age and student cohort.
+                Children under sixteen made up more than one fifth of the population, pointing to active
+                family formation, particularly in suburban wards. These figures capture two contrasting
+                geographies: an inner-city corridor of youth mobility and a suburban belt of family
+                consolidation.
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
@@ -265,16 +272,17 @@ const Findings = () => {
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Two Settlement Geographies</h3>
               <p>
-                The age distribution points to a clear spatial bifurcation. Inner-city wards near university campuses
-                (Rusholme: 64.4% aged 16 to 29, Barlow Moor: 62.5%, Hulme: 56.2%) had profiles dominated by
-                young adults, consistent with student and newly arrived catering-worker populations. Suburban
-                wards (Northenden, Sharston, Newton Heath) showed 40 to 43% of their Chinese residents under
-                16, indicating established family households in their second generation. Central ward had an
-                exceptional profile, with 23.4% of its Chinese residents at pensionable age, reflecting
-                long-term elderly residents associated with the pioneer catering-sector wave of the 1950s
-                and 1960s. Across the city, 27 of 33 wards contained at least one pensionable-age Chinese
-                resident, confirming that community roots extended well beyond the transient population
-                recorded at city-centre addresses.
+                The distribution of these age groups across wards reveals a clear spatial bifurcation. Inner-city
+                wards near university campuses, such as Rusholme, Barlow Moor, and Hulme, are dominated by young
+                adults, consistent with student and newly arrived catering-worker populations. By contrast,
+                suburban wards such as Northenden, Sharston, and Newton Heath show a much higher share of their
+                Chinese residents under sixteen, signalling more established family households and the emergence
+                of a second generation. Central ward presents an outlying profile, with a notably high proportion
+                of residents at pensionable age, pointing to a concentration of older, long-term residents linked
+                to the pioneer catering wave of the 1950s and 1960s. Across the city as a whole, the presence
+                of at least one pensionable-age Chinese resident in the majority of wards demonstrates that the
+                community's roots reach beyond the temporary student and worker populations most visible in
+                city-centre addresses.
               </p>
             </div>
           </div>
@@ -286,13 +294,14 @@ const Findings = () => {
           <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <p>
-              Across all 33 wards, Chinese concentration rose in 32 cases between 1981 and 2001 (mean increase:
-              +0.78 percentage points), with only Hulme recording a decline (-3.40pp) due to redevelopment
-              displacing residents. Mean ward owner-occupation increased by 7.3 percentage points, and mean
-              severe overcrowding fell by 0.36 percentage points, indicating broad improvements in housing
-              conditions city-wide. In the top-five Chinese-concentration wards, the gap relative to the
-              Manchester mean on car deprivation narrowed from +15.8 percentage points in 1981 to
-              +11.4 percentage points in 2001, suggesting modest convergence on material living standards.
+              Across the full twenty-year span, the ward-level data show an uneven but broadly convergent
+              picture. Chinese concentration rose in almost every ward between 1981 and 2001, with only
+              Hulme recording a decline (-3.40pp) driven by redevelopment and displacement rather than
+              voluntary dispersal. Over the same period, mean ward owner-occupation increased and mean
+              severe overcrowding fell, indicating general improvements in housing conditions. In the
+              wards with the highest Chinese concentrations, the gap with the Manchester mean in car
+              deprivation narrowed, a modest but measurable move towards parity in material living
+              standards.
             </p>
 
             <div className="overflow-x-auto">
@@ -333,32 +342,31 @@ const Findings = () => {
           <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Synthesis: Integration in Context</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
             <p>
-              The overall integration trajectory of Manchester's Chinese community between 1981 and 2001
-              is best characterised as asymmetric convergence. The settled, family-based segment showed
-              clear movement towards local socioeconomic norms on housing tenure, overcrowding, and
-              employment, particularly in suburban wards where Chinese employment rates of 65 to 74%
-              were comparable to or above local averages. Residential segregation declined substantially
-              over the period (D = 0.43 to 0.32), placing the Chinese community among the least
-              residentially segregated non-white groups in the city.
+              Across all four dimensions, the picture is broadly consistent. In suburban wards,
+              settled family households moved closer to local norms on tenure, crowding, and
+              employment, with Chinese employment rates in the range of roughly two thirds to three
+              quarters often matching or exceeding ward averages. The Index of Dissimilarity fell over
+              the period, placing the Chinese community among the least residentially segregated
+              non-white groups in the city.
             </p>
             <p>
-              However, this convergence was masked at the aggregate level by a growing transient student
-              and catering-worker population concentrated in inner-city wards, whose structural characteristics
-              (private renting, high turnover, low car ownership) persistently depressed composite indicators.
-              The spatially dispersed nature of Chinese self-employment, counter to enclave economy predictions,
-              further illustrates that the catering-sector economy operated at a metropolitan rather than
-              neighbourhood scale.
+              This convergence was obscured at the aggregate level by a growing transient student and
+              catering-worker population concentrated in inner-city wards. Their structural
+              characteristics, namely private renting, high turnover, and low car ownership,
+              persistently held down composite indicators. The geographically dispersed nature of
+              Chinese self-employment, which ran counter to enclave economy predictions, shows that
+              the catering-sector economy functioned at a metropolitan rather than neighbourhood scale.
             </p>
             <p>
-              The Chinatown of Central ward and surrounding areas served an increasingly symbolic,
-              institutional, and commercial function by 2001, while the residential centre of gravity
-              of the settled Chinese community had shifted to the inner southern and northern suburbs.
-              This pattern of institutional visibility alongside residential dispersal distinguishes
-              Manchester's Chinese community from both the sustained enclave model documented for
-              some South Asian groups and the rapid full assimilation predicted by classical spatial
-              assimilation theory, suggesting instead a selective form
-              of integration in which ethnic infrastructure was maintained
-              even as residential and economic boundaries grew gradually more permeable.
+              The Chinatown of Central ward and surrounding areas took on an increasingly symbolic,
+              institutional, and commercial role by 2001, while the residential centre of gravity of
+              the settled Chinese community had moved to the inner southern and northern suburbs.
+              This combination of institutional visibility and residential dispersal sets Manchester's
+              Chinese community apart from both the sustained enclave model recorded for some South
+              Asian groups and the rapid full assimilation predicted by classical spatial assimilation
+              theory. It points instead to a selective form of integration in which ethnic
+              infrastructure was kept in place even as residential and economic boundaries grew
+              gradually more permeable.
             </p>
             <div className="bg-muted/30 p-4 rounded-lg mt-4">
               <p className="text-sm text-foreground/70">
