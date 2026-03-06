@@ -1,6 +1,16 @@
 import { Header } from '@/components/Header';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { InView } from '@/components/ui/in-view';
+
+const inViewProps = {
+  variants: {
+    hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+  },
+  transition: { duration: 0.4, ease: 'easeOut' },
+  viewOptions: { margin: '0px 0px -60px 0px', once: true },
+} as const;
 
 const Methodology = () => {
   return (
@@ -8,28 +18,12 @@ const Methodology = () => {
       <Header />
       
       <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
-        <h1 className="text-4xl font-bold text-foreground mb-8">Methodology & Data</h1>
-
-        {/* Research Overview */}
-        <Card className="p-4 sm:p-6 md:p-8 mb-8">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Research Overview</h2>
-          <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
-            <p>
-              This project analyses the spatial distribution and socioeconomic integration of Chinese immigrant communities
-              in Greater Manchester across three census years <strong>1981, 1991, and 2001</strong>. By combining
-              historical Small Area Statistics (SAS) with digitised boundary data, the project maps how patterns of
-              settlement, housing tenure, employment, and economic position shifted over two decades.
-            </p>
-            <p>
-              Geographic units are Enumeration Districts for 1981 and 1991 and Output Areas for 2001, with all years
-              harmonised to a common ward geography of 33 units for cross-period comparison. 29 socioeconomic
-              indicators are derived per census year from UK Census Small Area Statistics (4 tables for 1981, 6 for
-              1991, 8 ONS Census Area Statistics for 2001), all sourced via the UK Data Service.
-            </p>
-          </div>
-        </Card>
+        <InView {...inViewProps}>
+          <h1 className="text-4xl font-bold text-foreground mb-8">Methodology & Data</h1>
+        </InView>
 
         {/* Data Pipeline */}
+        <InView {...inViewProps}>
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Data Pipeline</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed">
@@ -77,8 +71,10 @@ const Methodology = () => {
             </ol>
           </div>
         </Card>
+        </InView>
 
         {/* Technology Stack */}
+        <InView {...inViewProps}>
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Technology Stack</h2>
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
@@ -116,8 +112,10 @@ const Methodology = () => {
             </div>
           </div>
         </Card>
+        </InView>
 
         {/* Raw Data Inventory */}
+        <InView {...inViewProps}>
         <Card className="p-4 sm:p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Census Raw Data Inventory</h2>
           <p className="text-foreground/90 mb-6 leading-relaxed text-justify">
@@ -235,8 +233,10 @@ const Methodology = () => {
             </div>
           </div>
         </Card>
+        </InView>
 
         {/* Resources */}
+        <InView {...inViewProps}>
         <Card className="p-4 sm:p-6 md:p-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">Reproduce This Project</h2>
           <p className="text-foreground/90 mb-4 leading-relaxed text-justify">
@@ -262,6 +262,7 @@ const Methodology = () => {
             </a>
           </div>
         </Card>
+        </InView>
       </main>
     </div>
   );

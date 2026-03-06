@@ -20,8 +20,8 @@ const ScrollToTop = () => {
 
 /** Full-screen spinner shown while lazy chunks load */
 const PageLoader = () => (
-  <div className="h-screen w-screen bg-[#f8f9fa] flex items-center justify-center">
-    <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#e8eaed] border-t-[#1a73e8]" />
+  <div className="h-screen w-screen bg-background flex items-center justify-center">
+    <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary" />
   </div>
 );
 

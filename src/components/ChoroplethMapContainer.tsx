@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
-import { Moon, Sun } from 'lucide-react';
+import { X } from 'lucide-react';
 import type { Feature, FeatureCollection, Geometry } from 'geojson';
 import { WardGeoJSON, WardFeatureProperties, IndicatorMetadata } from '@/types/data';
 import { ChoroplethLegend } from '@/components/ChoroplethLegend';
@@ -183,17 +183,6 @@ export function ChoroplethMapContainer({
     return isDark;
   });
 
-  const toggleDark = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('theme', next ? 'dark' : 'light');
-    // Auto-switch between the default light/dark CARTO tiles
-    setCurrentTileLayer(prev =>
-      prev === 'light' || prev === 'dark' ? (next ? 'dark' : 'light') : prev
-    );
-  };
-
   const [currentTileLayer, setCurrentTileLayer] = useState<TileLayer>(() =>
     typeof window !== 'undefined' && localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'
   );
@@ -325,9 +314,20 @@ export function ChoroplethMapContainer({
       resizeObserver.observe(containerRef.current);
     }
 
+    // Sync tile layer and dark state when Header dispatches a theme change
+    const onThemeChange = (e: Event) => {
+      const isDark = (e as CustomEvent<{ dark: boolean }>).detail.dark;
+      setDark(isDark);
+      setCurrentTileLayer(prev =>
+        prev === 'light' || prev === 'dark' ? (isDark ? 'dark' : 'light') : prev
+      );
+    };
+    window.addEventListener('themechange', onThemeChange);
+
     // Cleanup only on unmount
     return () => {
       resizeObserver.disconnect();
+      window.removeEventListener('themechange', onThemeChange);
       console.log('[Map Init] → Component unmounting, cleaning up map');
       if (mapRef.current) {
         mapRef.current.remove();
@@ -493,8 +493,8 @@ export function ChoroplethMapContainer({
         </div>
       )}
 
-      {/* Map controls column – reset view + dark mode toggle */}
-      <div className="absolute top-40 right-2 md:right-4 z-[1000] flex flex-col gap-2">
+      {/* Map controls column – reset view only (dark mode moved to Header) */}
+      <div className="absolute top-40 right-2 md:right-4 z-[1000] flex flex-col gap-2" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
         {/* Reset view */}
         <button
           onClick={() => {
@@ -511,22 +511,12 @@ export function ChoroplethMapContainer({
             <path d="M3 3v5h5"/>
           </svg>
         </button>
-
-        {/* Dark mode toggle */}
-        <button
-          onClick={toggleDark}
-          title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="bg-card/90 backdrop-blur-xl rounded-full shadow-float w-9 h-9 flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-          aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-        >
-          {dark ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
       </div>
 
       {/* Indicator Selector - Floating pill top right */}
       {availableIndicators.length > 0 && onIndicatorChange && (
-        <div className="absolute top-24 right-2 md:right-4 z-[1000]">
-          <div className="bg-card/90 backdrop-blur-xl rounded-full shadow-float px-3 md:px-4 py-1.5 md:py-2">
+        <div className="absolute top-24 right-2 md:right-4 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+          <div className="bg-card/90 backdrop-blur-xl rounded-full shadow-float">
             <Select
               value={indicator.id}
               onValueChange={(id) => {
@@ -534,7 +524,7 @@ export function ChoroplethMapContainer({
                 if (selected) onIndicatorChange(selected);
               }}
             >
-              <SelectTrigger className="w-32 md:w-44 h-8 border-0 bg-transparent shadow-none rounded-full text-xs md:text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors">
+              <SelectTrigger className="w-32 md:w-44 h-auto px-3 md:px-4 py-1.5 md:py-2 border-0 bg-transparent shadow-none rounded-full text-xs md:text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent align="end" className="rounded-2xl shadow-float border-border w-44">
@@ -555,7 +545,7 @@ export function ChoroplethMapContainer({
 
       {/* Legend - Floating bottom right */}
       {breaks.length > 0 && (
-        <div className="absolute bottom-4 md:bottom-6 right-2 md:right-5 z-[1000]">
+        <div className="absolute bottom-4 md:bottom-6 right-2 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <ChoroplethLegend
             title={indicator.label}
             unit={indicator.unit}
@@ -567,7 +557,7 @@ export function ChoroplethMapContainer({
 
       {/* Mobile indicator info strip – bottom left, visible when no feature is selected */}
       {!selectedFeature && (
-        <div className="md:hidden absolute bottom-4 left-2 z-[1000] bg-card/90 backdrop-blur-xl rounded-2xl shadow-float p-3 max-w-[160px]">
+        <div className="md:hidden absolute bottom-4 left-2 z-[1000] bg-card/90 backdrop-blur-xl rounded-2xl shadow-float p-3 max-w-[160px]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <p className="text-xs font-semibold text-foreground leading-snug">{indicator.label}</p>
           <p className="text-xs text-muted-foreground mt-1 leading-snug line-clamp-2">{indicator.description}</p>
         </div>
@@ -608,7 +598,7 @@ export function ChoroplethMapContainer({
             : 'No data';
           const wardColor = getColor(typeof val === 'number' ? val : undefined, breaks, palette);
           return (
-            <div className="absolute bottom-6 left-5 z-[1000] bg-card/90 backdrop-blur-xl rounded-3xl shadow-float p-4 w-64">
+            <div className="absolute bottom-6 left-5 z-[1000] bg-card/90 backdrop-blur-xl rounded-3xl shadow-float p-4 w-64" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
               <div className="flex gap-3 items-start">
                 {selectedGeometry && (
                   <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-muted">
@@ -619,7 +609,7 @@ export function ChoroplethMapContainer({
                   <div className="flex justify-between items-start">
                     <p className="text-xs text-muted-foreground leading-snug">{indicator.label}</p>
                     <Button variant="ghost" size="sm" className="rounded-full h-6 w-6 p-0 -mt-0.5 -mr-1 text-muted-foreground hover:bg-muted" onClick={() => { setSelectedFeature(null); setSelectedGeometry(null); }}>
-                      ×
+                      <X size={12} />
                     </Button>
                   </div>
                   <p className="font-semibold text-sm text-foreground mt-0.5 truncate">{selectedFeature.ward_name || selectedFeature.ward_code}</p>

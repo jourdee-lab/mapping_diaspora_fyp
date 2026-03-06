@@ -1,11 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Moon, Sun } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  // Dark mode — single source of truth for all non-map pages; dispatches a
+  // custom event so ChoroplethMapContainer can sync its tile layer.
+  const [dark, setDark] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  const toggleDark = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { dark: next } }));
+  };
+
+  // Close mobile menu when clicking outside the header
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [menuOpen]);
 
   const handleLogoClick = () => {
     if (location.pathname !== '/') {
@@ -21,7 +51,7 @@ export const Header = () => {
   ];
 
   return (
-    <div className="relative z-40 mx-3 md:mx-5 mt-4 mb-2">
+    <div ref={headerRef} className="relative z-40 mx-3 md:mx-5 mt-4 mb-2">
       {/* Main pill bar */}
       <div className="bg-card/90 backdrop-blur-xl rounded-full shadow-float px-4 md:px-6 py-3 flex items-center gap-2">
         <button
@@ -56,6 +86,15 @@ export const Header = () => {
           ))}
         </nav>
 
+        {/* Dark mode toggle — visible on all pages */}
+        <button
+          onClick={toggleDark}
+          className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {dark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+
         {/* Mobile hamburger */}
         <button
           className="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-full hover:bg-muted transition-colors gap-1.5"
@@ -68,26 +107,34 @@ export const Header = () => {
         </button>
       </div>
 
-      {/* Mobile dropdown */}
-      {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-card/95 backdrop-blur-xl rounded-3xl shadow-float overflow-hidden">
-          {links.map(link => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMenuOpen(false)}
-              className={cn(
-                'block px-5 py-3.5 text-sm font-medium transition-colors',
-                location.pathname === link.path
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      )}
+      {/* Mobile dropdown – animated */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.97 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            className="md:hidden absolute top-full left-0 right-0 mt-2 bg-card/95 backdrop-blur-xl rounded-3xl shadow-float overflow-hidden"
+          >
+            {links.map(link => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setMenuOpen(false)}
+                className={cn(
+                  'block px-5 py-3.5 text-sm font-medium transition-colors',
+                  location.pathname === link.path
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

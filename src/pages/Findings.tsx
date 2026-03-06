@@ -14,7 +14,7 @@ const Findings = () => {
           <p className="text-base sm:text-lg">
             Manchester's Chinese community grew from approximately 2,400 Far East-born residents
             (0.55% of the city's population) in 1981 to over 5,100 self-identified Chinese in 2001
-            (1.31%) — a more than twofold increase over a period in which the city as a whole lost
+            (1.31%) which is more than a twofold increase over a period in which the city as a whole lost
             around 40,000 residents, declining from 433,000 to 393,000.
           </p>
           <p className="text-base sm:text-lg">
