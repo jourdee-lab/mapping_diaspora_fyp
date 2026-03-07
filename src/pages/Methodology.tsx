@@ -28,8 +28,8 @@ const Methodology = () => {
           <h2 className="text-2xl font-semibold text-foreground mb-4">Data Pipeline</h2>
           <div className="space-y-4 text-foreground/90 leading-relaxed">
             <p className="text-justify">
-              A reproducible data pipeline written in Python (13 numbered scripts) takes the project
-              from raw census ingestion to web-ready GeoJSON. Each stage is independently rerunnable and
+              A reproducible data pipeline written fully in Python (8 numbered scripts) takes the project
+              from raw census files to GeoJSON ready for web visualisation. Each stage is independently rerunnable and
               configured via YAML definition files.
             </p>
             <ol className="divide-y divide-border/60">
@@ -242,7 +242,7 @@ const Methodology = () => {
           <p className="text-foreground/90 mb-4 leading-relaxed text-justify">
             The full data pipeline source code is publicly available. Once you have obtained the raw census files
             from the UK Data Service and placed them in <code className="text-xs bg-muted px-1 py-0.5 rounded">data/raw/</code> as described above,
-            run the 13 numbered pipeline scripts in order to reproduce all indicators and GeoJSON outputs.
+            run the 8 numbered pipeline scripts in order to reproduce all indicators and GeoJSON outputs.
           </p>
           <p className="text-foreground/90 mb-6 leading-relaxed text-sm text-muted-foreground text-justify">
             Free UK Data Service registration is required to download census microdata. Search the catalogue for
