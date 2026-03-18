@@ -194,6 +194,7 @@ export function ChoroplethMapContainer({
   const [error, setError] = useState<string | null>(null);
   const [selectedFeature, setSelectedFeature] = useState<WardFeatureProperties | null>(null);
   const [selectedGeometry, setSelectedGeometry] = useState<Geometry | null>(null);
+  const [indicatorMenuOpen, setIndicatorMenuOpen] = useState(false);
 
   // Load GeoJSON data
   // Note: For optimal rendering performance and clean boundaries:
@@ -291,6 +292,7 @@ export function ChoroplethMapContainer({
       const tileLayer = L.tileLayer(tileLayers[currentTileLayer].url, {
         attribution: tileLayers[currentTileLayer].attribution,
         maxZoom: 18,
+        className: currentTileLayer === 'light' ? 'cool-light-tiles' : ''
       });
 
       tileLayer.addTo(map);
@@ -350,6 +352,7 @@ export function ChoroplethMapContainer({
     const newTileLayer = L.tileLayer(tileLayers[currentTileLayer].url, {
       attribution: tileLayers[currentTileLayer].attribution,
       maxZoom: 18,
+      className: currentTileLayer === 'light' ? 'cool-light-tiles' : ''
     });
     newTileLayer.addTo(mapRef.current);
     tileLayerRef.current = newTileLayer;
@@ -538,19 +541,23 @@ export function ChoroplethMapContainer({
 
       {/* Indicator Selector - Floating pill top right */}
       {availableIndicators.length > 0 && onIndicatorChange && (
-        <div className="absolute top-24 right-2 md:right-4 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
-          <div className="bg-card rounded-full p-1 shadow-float overflow-hidden">
-            <Select
-              value={indicator.id}
-              onValueChange={(id) => {
-                const selected = availableIndicators.find((i) => i.id === id);
-                if (selected) onIndicatorChange(selected);
-              }}
+        <div className="absolute top-24 right-3 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+          <Select
+            value={indicator.id}
+            open={indicatorMenuOpen}
+            onOpenChange={setIndicatorMenuOpen}
+            onValueChange={(id) => {
+              const selected = availableIndicators.find((i) => i.id === id);
+              if (selected) onIndicatorChange(selected);
+            }}
+          >
+            <SelectTrigger className="h-11 md:h-12 px-4 md:px-5 border border-border/50 bg-card/95 backdrop-blur-xl shadow-float rounded-full data-[state=open]:rounded-b-none data-[state=open]:border-b-transparent text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors w-[14.5rem] md:w-[16rem] [&>span]:whitespace-nowrap [&>span]:overflow-hidden [&>span]:text-ellipsis [&>svg]:mr-2.5 md:[&>svg]:mr-2.5">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent
+              align="end"
+              className="rounded-2xl rounded-t-none shadow-float border-border/50 backdrop-blur-xl bg-popover/95 w-[var(--radix-select-trigger-width)] min-w-[var(--radix-select-trigger-width)] max-w-[var(--radix-select-trigger-width)] max-h-[70vh] data-[side=bottom]:-translate-y-px"
             >
-              <SelectTrigger className="h-auto px-4 md:px-5 py-2 md:py-2.5 border-0 bg-transparent shadow-none rounded-full text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors w-auto max-w-[10rem] md:max-w-[14rem]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent align="end" className="rounded-2xl shadow-float border-border/50 w-56 md:w-64 backdrop-blur-xl bg-popover/95">
                 {(() => {
                   const grouped = availableIndicators.reduce<Record<string, typeof availableIndicators>>((acc, ind) => {
                     (acc[ind.category] ??= []).push(ind);
@@ -571,7 +578,8 @@ export function ChoroplethMapContainer({
                         <SelectItem
                           key={ind.id}
                           value={ind.id}
-                          className="rounded-lg text-sm cursor-pointer py-2"
+                          title={ind.label}
+                          className="rounded-lg text-sm cursor-pointer py-2 whitespace-nowrap overflow-hidden text-ellipsis"
                         >
                           {ind.label}
                         </SelectItem>
@@ -579,15 +587,18 @@ export function ChoroplethMapContainer({
                     </SelectGroup>
                   ));
                 })()}
-              </SelectContent>
-            </Select>
-          </div>
+            </SelectContent>
+          </Select>
         </div>
       )}
 
       {/* Legend - Floating bottom right */}
       {breaks.length > 0 && (
-        <div className="absolute bottom-4 md:bottom-6 right-2 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={`absolute bottom-4 md:bottom-6 right-2 md:right-5 z-[1000] transition-opacity duration-150 ${indicatorMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          onWheel={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+        >
           <ChoroplethLegend
             title={indicator.label}
             unit={indicator.unit}
