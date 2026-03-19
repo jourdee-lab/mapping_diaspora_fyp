@@ -520,7 +520,7 @@ export function ChoroplethMapContainer({
       )}
 
       {/* Map controls – Vertical pill and button below the Indicator Dropdown */}
-      <div className={`absolute top-[8.5rem] md:top-[9.5rem] right-3 md:right-5 z-[1000] flex flex-col items-center gap-2 transition-opacity duration-150 ${indicatorMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+      <div className={`absolute top-[9rem] md:top-[13rem] right-3 md:right-5 z-[1000] flex flex-col items-center gap-2 transition-opacity duration-150 ${indicatorMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col items-center bg-card/90 backdrop-blur-xl rounded-full shadow-float p-1 gap-1">
           <button
             onClick={() => {
@@ -574,9 +574,9 @@ export function ChoroplethMapContainer({
         </button>
       </div>
 
-      {/* Indicator Selector - Top right on desktop, moved down on mobile to flow with Year toggle */}
+      {/* Indicator Selector - Top right on desktop, right side on mobile */}
       {availableIndicators.length > 0 && onIndicatorChange && (
-        <div className="absolute top-[8.5rem] md:top-24 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+        <div className="absolute top-[5.5rem] md:top-24 right-3 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <Select
             value={indicator.id}
             open={indicatorMenuOpen}
@@ -586,7 +586,7 @@ export function ChoroplethMapContainer({
               if (selected) onIndicatorChange(selected);
             }}
           >
-            <SelectTrigger className="relative z-[1002] h-11 md:h-12 px-4 md:px-5 border border-border/50 bg-card/95 backdrop-blur-xl shadow-float rounded-full data-[state=open]:rounded-b-none data-[state=open]:border-b-transparent data-[state=open]:shadow-none text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-all duration-200 w-[12.325rem] md:w-[13.6rem] [&>span]:flex-1 [&>span]:text-center [&>span]:whitespace-nowrap [&>span]:overflow-hidden [&>span]:text-ellipsis [&>svg]:mr-2.5 md:[&>svg]:mr-2.5">
+            <SelectTrigger className="relative z-[1002] h-10 md:h-12 px-3 sm:px-4 md:px-5 border border-border/50 bg-card/95 backdrop-blur-xl shadow-float rounded-full data-[state=open]:rounded-b-none data-[state=open]:border-b-transparent data-[state=open]:shadow-none text-xs sm:text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-all duration-200 w-[165px] sm:w-[15rem] md:w-[16.5rem] [&>span]:flex-1 [&>span]:text-center [&>span]:whitespace-nowrap [&>span]:overflow-hidden [&>span]:text-ellipsis overflow-hidden">
               <SelectValue />
             </SelectTrigger>
             <SelectContent

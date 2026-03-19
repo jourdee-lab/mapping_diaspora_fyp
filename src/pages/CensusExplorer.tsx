@@ -90,9 +90,10 @@ export default function CensusExplorer() {
         </div>
       </div>
 
-      {/* Floating Year Toggle – centred on both mobile and desktop, pushed slightly down on mobile */}
-      <div className="fixed top-24 md:top-24 left-1/2 -translate-x-1/2 z-20" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
-        <div className="relative inline-flex items-center bg-card rounded-full p-1 shadow-float overflow-hidden">
+      {/* Floating Controls – Unified Top-Centre Group for Mobile, split out for Desktop */}
+      <div className="fixed top-[5.5rem] md:top-24 left-3 md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-none md:px-5 pointer-events-none z-20 flex flex-col md:flex-row md:justify-center items-center gap-3">
+        {/* Year Toggle */}
+        <div className="pointer-events-auto relative inline-flex items-center bg-card/90 backdrop-blur-xl rounded-full p-1 shadow-float overflow-hidden" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <div
             className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
             style={{
@@ -106,7 +107,7 @@ export default function CensusExplorer() {
           />
           <button
             onClick={() => handleYearChange(1981)}
-            className={`relative z-10 px-4 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-3 sm:px-4 md:px-8 py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 ${
               selectedYear === 1981
                 ? 'text-white'
                 : 'text-muted-foreground hover:text-foreground'
@@ -116,7 +117,7 @@ export default function CensusExplorer() {
           </button>
           <button
             onClick={() => handleYearChange(1991)}
-            className={`relative z-10 px-4 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-3 sm:px-4 md:px-8 py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 ${
               selectedYear === 1991
                 ? 'text-white'
                 : 'text-muted-foreground hover:text-foreground'
@@ -126,7 +127,7 @@ export default function CensusExplorer() {
           </button>
           <button
             onClick={() => handleYearChange(2001)}
-            className={`relative z-10 px-4 md:px-8 py-2 md:py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
+            className={`relative z-10 px-3 sm:px-4 md:px-8 py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 ${
               selectedYear === 2001
                 ? 'text-white'
                 : 'text-muted-foreground hover:text-foreground'
