@@ -494,10 +494,10 @@ export function ChoroplethMapContainer({
 
       {/* Loading Overlay */}
       {loading && (
-        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm flex items-center justify-center z-[2000]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary mx-auto mb-4"></div>
-            <p className="text-sm text-muted-foreground">Loading census data for {year}...</p>
+        <div className="absolute inset-0 bg-background/30 backdrop-blur-[2px] transition-all duration-300 flex items-center justify-center z-[2000] pointer-events-none">
+          <div className="bg-card/90 backdrop-blur-xl shadow-float px-6 py-4 rounded-full flex items-center gap-3 animate-in fade-in zoom-in-95 duration-300">
+            <div className="animate-spin rounded-full h-5 w-5 border-2 border-border border-t-primary"></div>
+            <p className="text-sm font-medium text-foreground tracking-tight">Processing {year} data...</p>
           </div>
         </div>
       )}
@@ -519,17 +519,52 @@ export function ChoroplethMapContainer({
         </div>
       )}
 
-      {/* Map controls column – reset view only (dark mode moved to Header) */}
-      <div className="absolute top-40 right-2 md:right-4 z-[1000] flex flex-col gap-2" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
-        {/* Reset view */}
+      {/* Map controls – Vertical pill and button below the Indicator Dropdown */}
+      <div className={`absolute top-[8.5rem] md:top-[9.5rem] right-3 md:right-5 z-[1000] flex flex-col items-center gap-2 transition-opacity duration-150 ${indicatorMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+        <div className="flex flex-col items-center bg-card/90 backdrop-blur-xl rounded-full shadow-float p-1 gap-1">
+          <button
+            onClick={() => {
+              if (mapRef.current) {
+                mapRef.current.zoomIn();
+              }
+            }}
+            title="Zoom in"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            aria-label="Zoom in map"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          <div className="w-4 h-[1px] bg-border/50"></div>
+          <button
+            onClick={() => {
+              if (mapRef.current) {
+                mapRef.current.zoomOut();
+              }
+            }}
+            title="Zoom out"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            aria-label="Zoom out map"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+        
         <button
           onClick={() => {
             if (mapRef.current && geoJsonLayerRef.current) {
-              mapRef.current.fitBounds(geoJsonLayerRef.current.getBounds());
+              const bounds = geoJsonLayerRef.current.getBounds();
+              if (bounds.isValid()) {
+                mapRef.current.fitBounds(bounds, { padding: [20, 20] });
+              }
             }
           }}
           title="Reset map view"
-          className="bg-card/90 backdrop-blur-xl rounded-full shadow-float w-9 h-9 flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          className="bg-card/90 backdrop-blur-xl rounded-full shadow-float w-[44px] h-[44px] flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           aria-label="Reset map to Manchester"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -539,9 +574,9 @@ export function ChoroplethMapContainer({
         </button>
       </div>
 
-      {/* Indicator Selector - Floating pill top right */}
+      {/* Indicator Selector - Top right on desktop, moved down on mobile to flow with Year toggle */}
       {availableIndicators.length > 0 && onIndicatorChange && (
-        <div className="absolute top-24 right-3 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+        <div className="absolute top-[8.5rem] md:top-24 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-5 z-[1000]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <Select
             value={indicator.id}
             open={indicatorMenuOpen}
@@ -551,12 +586,13 @@ export function ChoroplethMapContainer({
               if (selected) onIndicatorChange(selected);
             }}
           >
-            <SelectTrigger className="h-11 md:h-12 px-4 md:px-5 border border-border/50 bg-card/95 backdrop-blur-xl shadow-float rounded-full data-[state=open]:rounded-b-none data-[state=open]:border-b-transparent text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-colors w-[14.5rem] md:w-[16rem] [&>span]:whitespace-nowrap [&>span]:overflow-hidden [&>span]:text-ellipsis [&>svg]:mr-2.5 md:[&>svg]:mr-2.5">
+            <SelectTrigger className="relative z-[1002] h-11 md:h-12 px-4 md:px-5 border border-border/50 bg-card/95 backdrop-blur-xl shadow-float rounded-full data-[state=open]:rounded-b-none data-[state=open]:border-b-transparent data-[state=open]:shadow-none text-sm font-medium text-foreground focus:ring-0 hover:bg-muted/50 transition-all duration-200 w-[12.325rem] md:w-[13.6rem] [&>span]:flex-1 [&>span]:text-center [&>span]:whitespace-nowrap [&>span]:overflow-hidden [&>span]:text-ellipsis [&>svg]:mr-2.5 md:[&>svg]:mr-2.5">
               <SelectValue />
             </SelectTrigger>
             <SelectContent
-              align="end"
-              className="rounded-2xl rounded-t-none shadow-float border-border/50 backdrop-blur-xl bg-popover/95 w-[var(--radix-select-trigger-width)] min-w-[var(--radix-select-trigger-width)] max-w-[var(--radix-select-trigger-width)] max-h-[70vh] data-[side=bottom]:-translate-y-px"
+              position="popper"
+              sideOffset={0}
+              className="z-[1001] rounded-2xl rounded-t-none border-x border-b border-border/50 border-t-0 bg-card/95 shadow-float backdrop-blur-xl w-[var(--radix-select-trigger-width)] min-w-[var(--radix-select-trigger-width)] max-w-[var(--radix-select-trigger-width)] max-h-[70vh] data-[state=open]:animate-none data-[state=closed]:animate-none data-[side=bottom]:!translate-y-0 -mt-px"
             >
                 {(() => {
                   const grouped = availableIndicators.reduce<Record<string, typeof availableIndicators>>((acc, ind) => {

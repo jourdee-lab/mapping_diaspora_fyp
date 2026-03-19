@@ -90,8 +90,8 @@ export default function CensusExplorer() {
         </div>
       </div>
 
-      {/* Floating Year Toggle – left on mobile, top-centre on desktop */}
-      <div className="fixed top-24 left-2 md:left-1/2 md:-translate-x-1/2 z-20" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+      {/* Floating Year Toggle – centred on both mobile and desktop, pushed slightly down on mobile */}
+      <div className="fixed top-24 md:top-24 left-1/2 -translate-x-1/2 z-20" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
         <div className="relative inline-flex items-center bg-card rounded-full p-1 shadow-float overflow-hidden">
           <div
             className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
