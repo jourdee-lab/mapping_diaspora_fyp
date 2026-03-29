@@ -646,7 +646,7 @@ export function ChoroplethMapContainer({
 
       {/* Mobile indicator info strip – bottom left, visible when no feature is selected */}
       {!selectedFeature && (
-        <div className="md:hidden absolute bottom-4 left-2 z-[1000] bg-card/90 backdrop-blur-xl rounded-2xl shadow-float p-3 max-w-[160px]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+        <div className="md:hidden absolute bottom-4 left-2 z-[1000] bg-card/85 backdrop-blur-xl border border-border/50 rounded-2xl shadow-float p-3 max-w-[160px]" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <p className="text-xs font-semibold text-foreground leading-snug">{indicator.label}</p>
           <p className="text-xs text-muted-foreground mt-1 leading-snug line-clamp-2">{indicator.description}</p>
         </div>
@@ -687,7 +687,7 @@ export function ChoroplethMapContainer({
             : 'No data';
           const wardColor = getColor(typeof val === 'number' ? val : undefined, breaks, palette);
           return (
-            <div className="absolute bottom-6 left-5 z-[1000] bg-card/90 backdrop-blur-xl rounded-3xl shadow-float p-4 w-64" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+            <div className="absolute bottom-6 left-5 z-[1000] bg-card/85 backdrop-blur-xl border border-border/50 rounded-3xl shadow-float p-4 w-64" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
               <div className="flex gap-3 items-start">
                 {selectedGeometry && (
                   <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-muted">
