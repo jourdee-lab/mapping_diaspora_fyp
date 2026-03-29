@@ -2,25 +2,52 @@ import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { ChoroplethMapContainer } from '@/components/ChoroplethMapContainer';
 import { getIndicatorsByYear, getDefaultIndicator } from '@/data/indicators';
-import { IndicatorMetadata } from '@/types/data';
+import { IndicatorMetadata, WardFeatureProperties } from '@/types/data';
+import { useGeoJSON } from '@/hooks/useGeoJSON';
+import { IndicatorDistributionChart } from '@/components/IndicatorDistributionChart';
 
 export default function CensusExplorer() {
   const [selectedYear, setSelectedYear] = useState<1981 | 1991 | 2001>(1981);
   const [selectedIndicator, setSelectedIndicator] = useState<IndicatorMetadata>(
     getDefaultIndicator(1981)
   );
+  // Track what the user explicitly requested so we don't forget it on year swaps
+  const [preferredField, setPreferredField] = useState<string>(getDefaultIndicator(1981).field);
+  
+  const [selectedFeature, setSelectedFeature] = useState<WardFeatureProperties | null>(null);
+  const [hoveredFeature, setHoveredFeature] = useState<WardFeatureProperties | null>(null);
+
+  const handleIndicatorSelect = (indicator: IndicatorMetadata) => {
+    setSelectedIndicator(indicator);
+    setPreferredField(indicator.field); // Always remember the user's direct choice
+  };
 
   const handleYearChange = (year: 1981 | 1991 | 2001) => {
     setSelectedYear(year);
-    const defaultIndicator = getDefaultIndicator(year);
-    setSelectedIndicator(defaultIndicator);
-  };
+      const newYearIndicators = getIndicatorsByYear(year);
+      
+      // 1. First priority: Try to match their originally *preferred* field
+      const preferredMatch = newYearIndicators.find(ind => ind.field === preferredField);
+      
+      if (preferredMatch) {
+        setSelectedIndicator(preferredMatch);
+      } else {
+        // 2. Second priority: Next common one (match by category) or default fallback
+        //    (We deliberately don't update preferredField here, so we remember it for next time!)
+        const categoryMatch = newYearIndicators.find(ind => ind.category === selectedIndicator.category);
+        setSelectedIndicator(categoryMatch ?? getDefaultIndicator(year));
+      }
+    };
 
-  const availableIndicators = getIndicatorsByYear(selectedYear);
+    const availableIndicators = getIndicatorsByYear(selectedYear);
 
-  const currentIndicator = selectedIndicator.year === selectedYear 
-    ? selectedIndicator 
-    : getDefaultIndicator(selectedYear);
+    // Ensure we have a valid indicator for the current year, 
+    // though handleYearChange should guarantee this.
+    const currentIndicator = selectedIndicator.year === selectedYear 
+      ? selectedIndicator 
+      : getDefaultIndicator(selectedYear);
+      
+    const { data: geojsonData, loading } = useGeoJSON(selectedYear);
 
   return (
     <div className="h-screen w-screen relative">
@@ -29,10 +56,17 @@ export default function CensusExplorer() {
         <ChoroplethMapContainer
           year={selectedYear}
           indicator={currentIndicator}
-          onIndicatorChange={setSelectedIndicator}
+          onIndicatorChange={handleIndicatorSelect}
           availableIndicators={availableIndicators}
+          geojsonData={geojsonData}
+          loading={loading}
+          onFeatureSelect={setSelectedFeature}
+          onFeatureHover={setHoveredFeature}
         />
       </div>
+
+      {/* Map Vignette - inner shadow for depth */}
+      <div className="pointer-events-none fixed inset-0 z-10 shadow-[inset_0_0_100px_rgba(0,0,0,0.2)] dark:shadow-[inset_0_0_150px_rgba(0,0,0,0.6)]" />
 
       {/* Header - fixed on top */}
       <div className="fixed top-0 left-0 right-0 z-40">
@@ -40,8 +74,8 @@ export default function CensusExplorer() {
       </div>
 
       {/* Floating Left Panel – desktop only */}
-      <div className="hidden md:block absolute top-24 left-5 z-20 w-80" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
-        <div className="bg-card rounded-3xl shadow-float overflow-hidden">
+      <div className="hidden md:flex flex-col absolute top-24 left-5 bottom-24 z-20 w-80 pointer-events-none">
+        <div className="bg-card/85 backdrop-blur-xl border border-border/50 rounded-3xl shadow-float overflow-hidden pointer-events-auto flex-[0_1_auto] flex flex-col" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           {/* Panel Header */}
           <div className="px-5 pt-5 pb-3">
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Indicator</p>
@@ -51,6 +85,13 @@ export default function CensusExplorer() {
             <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
               {currentIndicator.description}
             </p>
+            
+            <IndicatorDistributionChart 
+              geojsonData={geojsonData} 
+              indicator={currentIndicator}
+              selectedFeature={selectedFeature}
+              hoveredFeature={hoveredFeature}
+            />
           </div>
 
           {/* Divider */}
@@ -93,7 +134,7 @@ export default function CensusExplorer() {
       {/* Floating Controls – Unified Top-Centre Group for Mobile, split out for Desktop */}
       <div className="fixed top-[5.5rem] md:top-24 left-3 md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-none md:px-5 pointer-events-none z-20 flex flex-col md:flex-row md:justify-center items-center gap-3">
         {/* Year Toggle */}
-        <div className="pointer-events-auto relative inline-flex items-center bg-card/90 backdrop-blur-xl rounded-full p-1 shadow-float overflow-hidden" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+          <div className="pointer-events-auto relative inline-flex items-center bg-card/85 backdrop-blur-xl border border-border/50 rounded-full p-1 shadow-float overflow-hidden" onWheel={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
           <div
             className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(33.333%-2.667px)] bg-[#1a73e8] rounded-full transition-transform duration-300 ease-out"
             style={{

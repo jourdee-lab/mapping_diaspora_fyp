@@ -229,3 +229,13 @@ All colors MUST be HSL.
 .leaflet-tooltip.custom-tooltip::before {
   display: none;
 }
+
+/* Map Layer Blending (The Magic) */
+.leaflet-overlay-pane svg path {
+  mix-blend-mode: multiply;
+}
+
+.dark .leaflet-overlay-pane svg path {
+  mix-blend-mode: color-dodge; /* screen/color-dodge works well on dark maps */
+}
+

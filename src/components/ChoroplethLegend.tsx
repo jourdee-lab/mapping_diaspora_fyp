@@ -20,7 +20,7 @@ export function ChoroplethLegend({ title, unit, breaks, colors }: ChoroplethLege
   };
 
   return (
-    <div className="bg-card/90 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-float p-3 md:p-4 max-w-[170px] md:max-w-[220px]">
+    <div className="bg-card/85 backdrop-blur-xl border border-border/50 rounded-2xl md:rounded-3xl shadow-float p-3 md:p-4 max-w-[170px] md:max-w-[220px]">
       <h4 className="font-semibold text-xs text-foreground mb-2 md:mb-3 truncate">{title}</h4>
       <div className="space-y-1">
         {colors.map((color, index) => {

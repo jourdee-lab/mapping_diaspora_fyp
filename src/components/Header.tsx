@@ -54,7 +54,7 @@ export const Header = () => {
     <div ref={headerRef} className="relative z-40 mx-3 md:mx-5 mt-4 mb-2">
       {/* Main pill bar */}
       <div className={cn(
-        "bg-card/90 backdrop-blur-xl px-4 md:px-6 py-3 flex items-center gap-2 transition-all duration-200",
+        "bg-card/85 backdrop-blur-xl border border-border/50 px-4 md:px-6 py-3 flex items-center gap-2 transition-all duration-200",
         menuOpen ? "rounded-t-3xl rounded-b-none border-b-transparent shadow-none" : "rounded-full shadow-float"
       )}>
         <button
@@ -118,7 +118,7 @@ export const Header = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-card/95 backdrop-blur-xl rounded-b-3xl shadow-float overflow-hidden border-t border-border/10 origin-top"
+            className="md:hidden absolute top-full left-0 right-0 bg-card/85 backdrop-blur-xl rounded-b-3xl shadow-float overflow-hidden border border-t-0 border-border/50 origin-top"
           >
             {links.map(link => (
               <Link

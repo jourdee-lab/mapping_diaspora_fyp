@@ -173,16 +173,6 @@ export const AVAILABLE_INDICATORS: IndicatorMetadata[] = [
     colorScheme: 'sequential',
   },
   {
-    id: 'pct_social_rent_1981',
-    label: 'Social Renting %',
-    description: '% households in social rented tenure',
-    unit: 'percentage',
-    year: 1981,
-    category: 'housing',
-    field: 'pct_social_rent',
-    colorScheme: 'sequential',
-  },
-  {
     id: 'pct_social_rent_2001',
     label: 'Council/RSL Renting %',
     description: '% household spaces rented from council or registered social landlord (CS049EW)',
