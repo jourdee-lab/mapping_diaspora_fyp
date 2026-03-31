@@ -80,24 +80,7 @@ const Findings = () => {
         <div className="min-w-0">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Findings and Analysis</h1>
-          <Link to="/">
-            <Button variant="outline" className="shrink-0 gap-2">
-              <Map className="w-4 h-4" />
-              Return to Map
-            </Button>
-          </Link>
         </div>
-
-        {/* User Prompt / CTAs */}
-        <Alert className="mb-10 bg-secondary/30 border-primary/20">
-          <Lightbulb className="w-5 h-5 text-primary" />
-          <AlertTitle className="text-primary font-semibold">Have you explored the data yet?</AlertTitle>
-          <AlertDescription className="text-foreground/80 mt-2 space-y-3">
-            <p>
-              We highly recommend interpreting the spatial patterns in the <strong>Explorer</strong> <em>before</em> reading these findings. The map allows you to form your own hypotheses about the changes over the two decades.
-            </p>
-          </AlertDescription>
-        </Alert>
 
         {/* Key Statistics Summary Cards (replaces heavy intro context) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
