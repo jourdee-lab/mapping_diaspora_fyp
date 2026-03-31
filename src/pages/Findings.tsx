@@ -1,37 +1,126 @@
+import { Card } from "@/components/ui/card";
 import { Header } from '@/components/Header';
-import { Card } from '@/components/ui/card';
+import { motion } from "framer-motion";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { Link } from "react-router-dom";
+import { Map, Lightbulb } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+
+const sections = [
+  { id: "settlement", title: "Mapping the Community" },
+  { id: "housing", title: "Making a Home" },
+  { id: "livelihood", title: "Enterprise & Livelihood" },
+  { id: "generations", title: "Generations & Settlement" },
+  { id: "trajectories", title: "Trajectories of Change" },
+  { id: "synthesis", title: "Integration Reconsidered" }
+];
 
 const Findings = () => {
+  const activeSection = useActiveSection(sections.map(s => s.id));
+
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="container mx-auto px-4 md:px-8 py-12 max-w-5xl">
-        <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Findings and Analysis</h1>
+      <main className="container mx-auto px-4 md:px-8 py-12 lg:py-16 max-w-[1400px] lg:grid lg:grid-cols-[200px_1fr] gap-8 xl:gap-16">
+        
+        {/* Desktop Chapter Navigation - sticky sidebar */}
+        <aside className="hidden lg:block relative">
+          <div className="sticky top-24 font-sans">
+            <p className="text-xs uppercase tracking-widest font-semibold text-muted-foreground mb-6 pl-4">Contents</p>
+            <nav className="flex flex-col relative space-y-1">
+              <div className="absolute left-[3px] top-0 bottom-0 w-[2px] bg-border/20 rounded-full" />
+              {sections.map((section) => {
+                const isActive = activeSection === section.id;
+                return (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    onClick={(e) => handleScrollTo(e, section.id)}
+                    className={`relative px-4 py-2 text-sm transition-colors duration-200 block ${
+                      isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground/80"
+                    }`}
+                  >
+                    {/* Active highlight background */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="sidebar-active-indicator"
+                        className="absolute inset-0 bg-secondary/50 rounded-md -z-10"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                    {/* Left border active indicator */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="sidebar-active-border"
+                        className="absolute left-0 top-1 bottom-1 w-[2px] bg-primary rounded-full"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                    {section.title}
+                  </a>
+                );
+              })}
+            </nav>
+          </div>
+        </aside>
 
-        {/* Introductory context */}
-        <div className="mb-10 space-y-4 text-foreground/85 leading-relaxed text-justify border-l-2 border-border pl-5">
-          <p className="text-base sm:text-lg">
-            Between 1981 and 2001, Manchester's Chinese population increased from roughly 2,400
-            Far East-born residents (0.55% of the city) to more than 5,100 people who self-identified
-            as Chinese (1.31%). This growth occurred against a backdrop of overall urban decline, as the
-            city's population fell from about 433,000 to 393,000, a loss of approximately 40,000 residents.
-          </p>
-          <p className="text-base sm:text-lg">
-            The quantitative evidence points to a pattern of <em>asymmetric convergence</em> rather than
-            straightforward linear assimilation. A settled, family-based segment of the community moved
-            closer to local socio-economic norms over the twenty-year period: the Index of Dissimilarity
-            declined from 0.43 in 1981 to 0.32 in 2001, average ward-level owner-occupation rose by
-            7.3 percentage points, and severe overcrowding fell by 0.36 percentage points across the
-            city. At the same time, the growing presence of students and transient catering workers in
-            inner-city wards continued to weigh down aggregated indicators, so that the convergence of
-            long-settled households with city averages is largely hidden at the level of city-wide metrics.
-          </p>
+        {/* Main Content Area */}
+        <div className="min-w-0">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Findings and Analysis</h1>
+          <Link to="/">
+            <Button variant="outline" className="shrink-0 gap-2">
+              <Map className="w-4 h-4" />
+              Return to Map
+            </Button>
+          </Link>
+        </div>
+
+        {/* User Prompt / CTAs */}
+        <Alert className="mb-10 bg-secondary/30 border-primary/20">
+          <Lightbulb className="w-5 h-5 text-primary" />
+          <AlertTitle className="text-primary font-semibold">Have you explored the data yet?</AlertTitle>
+          <AlertDescription className="text-foreground/80 mt-2 space-y-3">
+            <p>
+              We highly recommend interpreting the spatial patterns in the <strong>Explorer</strong> <em>before</em> reading these findings. The map allows you to form your own hypotheses about the changes over the two decades.
+            </p>
+          </AlertDescription>
+        </Alert>
+
+        {/* Key Statistics Summary Cards (replaces heavy intro context) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          <Card className="p-5 border-border/40 shadow-sm bg-card/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Pop. Growth (81-01)</p>
+            <p className="text-2xl font-bold text-foreground">2,400 <span className="text-muted-foreground font-normal text-lg">→</span> 5,100</p>
+            <p className="text-sm text-foreground/70 mt-2">Against a city-wide population decline of ~40k residents.</p>
+          </Card>
+          <Card className="p-5 border-border/40 shadow-sm bg-card/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Spatial Spread</p>
+            <p className="text-2xl font-bold text-foreground">0.43 <span className="text-muted-foreground font-normal text-lg">→</span> 0.32</p>
+            <p className="text-sm text-foreground/70 mt-2">Index of Dissimilarity dropped, indicating wider dispersal.</p>
+          </Card>
+          <Card className="p-5 border-border/40 shadow-sm bg-card/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Housing Quality</p>
+            <p className="text-2xl font-bold text-foreground">+7.3% <span className="text-sm font-normal text-muted-foreground">Ownership</span></p>
+            <p className="text-sm text-foreground/70 mt-2">Rise in structural convergence despite ongoing transient presence.</p>
+          </Card>
         </div>
 
         {/* RQ1 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Spatial Distribution and Concentration (1981 to 2001)</h2>
+          <h2 id="settlement" className="scroll-mt-32 text-base sm:text-xl font-semibold text-foreground mb-6">Settlement and Dispersal: Mapping the Community</h2>
           <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
@@ -125,12 +214,12 @@ const Findings = () => {
 
         {/* RQ2 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Housing Tenure and Quality</h2>
+          <h2 id="housing" className="scroll-mt-32 text-base sm:text-xl font-semibold text-foreground mb-6">Making a Home: Housing and Living Conditions</h2>
           <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Owner-Occupation</h3>
-              <p>
+              <p className="text-base sm:text-lg">
                 In 1991, Chinese households achieved an aggregated owner-occupation rate of 38.4%, slightly higher
                 than the 1981 Manchester ward mean of roughly 35.5% and broadly consonant with city-wide norms. By
                 2001, however, the five wards with the highest Chinese concentrations registered lower owner-occupation
@@ -159,7 +248,7 @@ const Findings = () => {
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Basic Amenities</h3>
-              <p>
+              <p className="text-base sm:text-lg">
                 In 1981, the five wards with the highest Chinese presence had markedly lower rates of households
                 lacking a bath or WC than the Manchester average, with Hulme at just 0.41% compared with a city
                 mean of 3.31%, a result of post-war redevelopment and relatively modern housing stock following
@@ -176,7 +265,7 @@ const Findings = () => {
 
         {/* RQ3 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Employment and Economic Position</h2>
+          <h2 id="livelihood" className="scroll-mt-32 text-base sm:text-xl font-semibold text-foreground mb-6">Work, Enterprise, and Livelihood</h2>
           <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
@@ -195,7 +284,7 @@ const Findings = () => {
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Self-Employment and the Enclave Economy (2001)</h3>
-              <p>
+              <p className="text-base sm:text-lg">
                 Self-employment patterns in 2001 challenge a straightforward reading of Chinatown as a classic
                 ethnic enclave economy. The Manchester mean self-employment rate was 4.6%, yet the ten wards
                 with the highest Chinese concentrations all recorded self-employment rates below or equal to
@@ -211,7 +300,7 @@ const Findings = () => {
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Employment and Chinese Presence (1981)</h3>
-              <p>
+              <p className="text-base sm:text-lg">
                 In 1981, a negative correlation existed between ward-level Chinese concentration and ward-level
                 employment rates. Wards in the highest quintile of Chinese presence had a mean employment rate
                 of 20.2%, compared with 21.6% in the lowest quintile. This association does not imply that
@@ -228,7 +317,7 @@ const Findings = () => {
 
         {/* RQ4 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Age Structure and Settlement Depth (1991)</h2>
+          <h2 id="generations" className="scroll-mt-32 text-base sm:text-xl font-semibold text-foreground mb-6">Generations and the Depth of Settlement</h2>
           <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
             <div>
@@ -271,7 +360,7 @@ const Findings = () => {
 
             <div>
               <h3 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">Two Settlement Geographies</h3>
-              <p>
+              <p className="text-base sm:text-lg">
                 The distribution of these age groups across wards reveals a clear spatial bifurcation. Inner-city
                 wards near university campuses, such as Rusholme, Barlow Moor, and Hulme, are dominated by young
                 adults, consistent with student and newly arrived catering-worker populations. By contrast,
@@ -290,10 +379,10 @@ const Findings = () => {
 
         {/* RQ5 */}
         <Card className="p-4 sm:p-8 mb-8">
-          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Temporal Change and Integration Trajectory</h2>
+          <h2 id="trajectories" className="scroll-mt-32 text-base sm:text-xl font-semibold text-foreground mb-6">Trajectories of Change over Two Decades</h2>
           <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
 
-            <p>
+            <p className="text-base sm:text-lg">
               Across the full twenty-year span, the ward-level data show an uneven but broadly convergent
               picture. Chinese concentration rose in almost every ward between 1981 and 2001, with only
               Hulme recording a decline (-3.40pp) driven by redevelopment and displacement rather than
@@ -338,10 +427,10 @@ const Findings = () => {
         </Card>
 
         {/* Synthesis */}
-        <Card className="p-4 sm:p-8">
-          <h2 className="text-base sm:text-xl font-semibold text-foreground mb-6">Synthesis: Integration in Context</h2>
-          <div className="space-y-4 text-foreground/90 leading-relaxed text-justify">
-            <p>
+        <Card className="p-4 sm:p-8 mb-8">
+          <h2 id="synthesis" className="scroll-mt-32 text-base sm:text-xl font-semibold text-foreground mb-6">Integration Reconsidered</h2>
+          <div className="divide-y divide-border/30 text-foreground/90 leading-relaxed text-justify [&>div]:py-6 [&>div:first-child]:pt-0">
+            <p className="text-base sm:text-lg">
               Across all four dimensions, the picture is broadly consistent. In suburban wards,
               settled family households moved closer to local norms on tenure, crowding, and
               employment, with Chinese employment rates in the range of roughly two thirds to three
@@ -349,7 +438,7 @@ const Findings = () => {
               the period, placing the Chinese community among the least residentially segregated
               non-white groups in the city.
             </p>
-            <p>
+            <p className="text-base sm:text-lg">
               This convergence was obscured at the aggregate level by a growing transient student and
               catering-worker population concentrated in inner-city wards. Their structural
               characteristics, namely private renting, high turnover, and low car ownership,
@@ -357,7 +446,7 @@ const Findings = () => {
               Chinese self-employment, which ran counter to enclave economy predictions, shows that
               the catering-sector economy functioned at a metropolitan rather than neighbourhood scale.
             </p>
-            <p>
+            <p className="text-base sm:text-lg">
               The Chinatown of Central ward and surrounding areas took on an increasingly symbolic,
               institutional, and commercial role by 2001, while the residential centre of gravity of
               the settled Chinese community had moved to the inner southern and northern suburbs.
@@ -379,7 +468,8 @@ const Findings = () => {
               </p>
             </div>
           </div>
-        </Card>
+         </Card>
+        </div>
       </main>
     </div>
   );
